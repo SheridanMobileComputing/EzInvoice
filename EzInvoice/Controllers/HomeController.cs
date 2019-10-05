@@ -32,5 +32,11 @@ namespace EzInvoice.Controllers
         {
             return View("Error", 404);
         }
+
+        [Route("dashboard")]
+        public IActionResult Dashboard()
+        {
+            return View("Dashboard");
+        }
     }
 }
