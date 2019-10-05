@@ -6,6 +6,9 @@
     <link rel="stylesheet" href="/lib/twitter-bootstrap/css/bootstrap.css" />
     <link rel="stylesheet" href="/lib/font-awesome/css/all.css" />
     <title>@ViewBag.Title</title>
+    <style>
+        body { padding-top: 50px; }
+    </style>
 </head>
 <body>
 
@@ -21,7 +24,7 @@
         <div class="navbar-nav mr-auto"> <!-- Nav Bar Items in List -->
 
             <div class="nav-item active"> <!-- Home Button -->
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="/Dashboard">
                     <span class="fas fa-home"></span> Dashboard
                     <span class="sr-only">(current)</span>
                 </a>
@@ -35,7 +38,7 @@
             </div> <!-- Clients button -->
 
             <div class="nav-item"> <!-- Invoices button -->
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="/InvoiceMain">
                     <span class="fas fa-file-invoice"></span> Invoices
                     <span class="sr-only">(current)</span>
                 </a>

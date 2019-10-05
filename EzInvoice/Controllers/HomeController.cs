@@ -38,5 +38,11 @@ namespace EzInvoice.Controllers
         {
             return View("Dashboard");
         }
+
+        [Route("invoicemain")]
+        public IActionResult InvoiceMain()
+        {
+            return View("InvoiceMain");
+        }
     }
 }
