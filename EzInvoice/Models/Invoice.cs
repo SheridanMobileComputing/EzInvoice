@@ -7,14 +7,14 @@ namespace EzInvoice.Models
 {
     public class Invoice
     {
-        public int Id { get; set; }
-        public DateTime Date_of_issue { get; set; }
-        public DateTime Due_date { get; set; }
-        public bool Paid { get; set; }
-        public float Tax_rate { get; set; }
+        private int Id { get; set; }
+        private DateTime Date_of_issue { get; set; }
+        private DateTime Due_date { get; set; }
+        private bool Paid { get; set; }
+        private float Tax_rate { get; set; }
 
 
-        public float TotalInvoiceAmt()
+        private float TotalInvoiceAmt()
         {
             /* 
              

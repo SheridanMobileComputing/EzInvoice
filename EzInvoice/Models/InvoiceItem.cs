@@ -7,11 +7,11 @@ namespace EzInvoice.Models
 {
     public class InvoiceItem
     {
-        public int Id { get; set; }
-        public DateTime Date { get; set; }
-        public float Quantity { get; set; }
-        public string Description { get; set; }
-        public float Cost_each { get; set; }
+        private int Id { get; set; }
+        private DateTime Date { get; set; }
+        private float Quantity { get; set; }
+        private string Description { get; set; }
+        private float Cost_each { get; set; }
 
     }
 }
