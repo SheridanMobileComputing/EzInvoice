@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using EzInvoice.Models;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,16 +13,27 @@ namespace EzInvoice.Controllers
         public IActionResult Index()
         {
             //check to see if the user has logged in already, if they have not:
-            return View("Login");
+            return Login();
             //else, direct to the main hub.
         }
 
-        [Route("login")]
         public IActionResult Login()
         {
-            return View("Login");
+            //an empty loginattempt object will tell the View to render the Login page as
+            //  if no attempt has yet been made.
+            return View("Login", new LoginAttempt());
         }
-        [Route("signup")]
+
+        [HttpPost]
+        public IActionResult Login(LoginAttempt attempt)
+        {
+            if(attempt.wasSuccessful())
+            {
+                return Dashboard();
+            }
+
+            return View("Login", attempt);
+        }
         public IActionResult Signup()
         {
             return View("Signup");
@@ -33,13 +45,14 @@ namespace EzInvoice.Controllers
             return View("Error", 404);
         }
 
-        [Route("dashboard")]
         public IActionResult Dashboard()
         {
-            return View("Dashboard");
+            //the dashboard, for now, will show the top five invoices, by due date.
+            var invoices = Invoice.GetInvoices();
+            //order them here
+            return View("Dashboard", invoices);
         }
 
-        [Route("invoicemain")]
         public IActionResult InvoiceMain()
         {
             return View("InvoiceMain");

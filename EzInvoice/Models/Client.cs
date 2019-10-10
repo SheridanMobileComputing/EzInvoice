@@ -27,11 +27,44 @@ namespace EzInvoice.Models
 
         public bool GoodStanding()
         {
-
             /* Using the calcBalance method, if the 
              total balance is positive return true, else
              return false */
             return true;
+        }
+
+        public static List<Client> GetClients()
+        {
+            return new List<Client>()
+            {
+                new Client()
+                {
+                    Name = "Jeremy Clark",
+                    Street = "6969 Fake Street",
+                    City = "Oakville",
+                    Province = "Ontario",
+                    Postal_code = "X9X9X9X",
+                    Country = "Canada",
+                },
+                new Client()
+                {
+                    Name = "Apple Inc",
+                    Street = "1 Apple Park Way",
+                    City = "Cupertino",
+                    Province = "California",
+                    Postal_code = "95014",
+                    Country = "United States",
+                },
+                new Client()
+                {
+                    Name = "Richard Sackler",
+                    Street = "24 Oxycontin Rd",
+                    City = "Austin",
+                    Province = "Texas",
+                    Postal_code = "78652",
+                    Country = "United States",
+                },
+            };
         }
 
     }

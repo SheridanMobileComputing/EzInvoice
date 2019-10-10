@@ -1,15 +1,23 @@
-﻿
+﻿@model List<EzInvoice.Models.Invoice>
+
 @{
     Layout = "_MainLayout";
 }
 
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Dashboard</title>
-</head>
-<body>
-</body>
-</html>
+<div class="container">
+    @foreach (var invoice in Model)
+    {
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header"><a href="/Home/Invoice/@invoice.Id">Id: @invoice.Id</a></div>
+                    <div class="card-body">
+                        <p>Issued: @invoice.Date_of_issue</p>
+                        <p>Due: @invoice.Due_date</p>
+                        <p>Client: @invoice.Client</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>

@@ -9,7 +9,7 @@ namespace EzInvoice.Models
     {
         private string First_name { get; set; }
         private string Last_name { get; set; }
-        private string Email_address { get; set; }
+        public string Email_address { get; set; }
         private string Password { get; set; }
         private string Street { get; set; }
         private string City { get; set; }
@@ -17,5 +17,15 @@ namespace EzInvoice.Models
         private string Postal_Code { get; set; }
         private string Country { get; set; }
 
+        public static User getUser(string name)
+        {
+            return new User
+            {
+                First_name = "Jam",
+                Last_name = "Smith",
+            };
+        }
+
     }
+
 }

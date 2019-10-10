@@ -1,4 +1,5 @@
-﻿
+﻿@model EzInvoice.Models.LoginAttempt
+
 @{
     Layout = null;
 }
@@ -12,5 +13,17 @@
 </head>
 <body>
     <h1>EzInvoice 0.4.2.0</h1>
+    <h2>Login</h2>
+    @if (!Model.emptyAttempt())
+    {
+        <h3>INFORMATION INCORRECT. TRY AGAIN.</h3>
+    }
+
+    @using(Html.BeginForm("login", "Home", FormMethod.Post))
+    {
+        @Html.TextBoxFor(loginAttempt => loginAttempt.Email_address, new { placeholder = "email", value = Model.Email_address });
+        @Html.TextBoxFor(loginAttempt => loginAttempt.Password, new { placeholder = "password", value = Model.Password });
+        <input type="submit" value="Login" />
+    }
 </body>
 </html>
