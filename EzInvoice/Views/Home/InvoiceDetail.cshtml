@@ -1,0 +1,43 @@
+﻿@model Invoice
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>InvoiceDetail</title>
+    <link rel="stylesheet" href="lib/twitter-bootstrap/css/bootstrap.css"/>
+</head>
+<body>
+<h1 class="text-center">EZInvoice</h1>
+
+<table class="table text-center">
+    <thead>
+    <tr>
+        <th scope="col">ID #</th>
+        <th scope="col">Client Name</th>
+        <th scope="col">Date Issued</th>
+        <th scope="col">Due Date</th>
+        <th scope="col">Status</th>
+        <th scope="col">Tax Rate</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>@Model.Id</td>
+        <td>@Model.Client</td>
+        <td>@Model.Date_of_issue</td>
+        <td>@Model.Due_date</td>
+        <td>@Model.Paid</td>
+        <td>@Model.Tax_rate</td>
+    </tr>
+    </tbody>
+</table>
+<div class="text-center">
+    <button href="#" class="btn btn-success">Pay Invoice</button>
+</div>
+</body>
+</html>
+
+
+

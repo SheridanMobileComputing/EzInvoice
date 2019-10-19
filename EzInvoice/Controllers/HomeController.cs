@@ -36,7 +36,7 @@ namespace EzInvoice.Controllers
         }
         public IActionResult Signup()
         {
-            return View("Signup");
+            return View();
         }
 
         [Route("error/404")]
@@ -47,15 +47,24 @@ namespace EzInvoice.Controllers
 
         public IActionResult Dashboard()
         {
-            //the dashboard, for now, will show the top five invoices, by due date.
-            var invoices = Invoice.GetInvoices();
-            //order them here
-            return View("Dashboard", invoices);
+            return View("Dashboard");
         }
 
         public IActionResult InvoiceMain()
         {
-            return View("InvoiceMain");
+            return View("InvoiceMain", Repository.InvoiceList);
         }
+
+        public IActionResult InvoiceDetail(int id)
+        {
+            var request = Repository.InvoiceList.SingleOrDefault(r => r.Id == id);
+
+            if (request == null)
+            {
+                return View("Error");
+            }
+            return View("InvoiceDetail", request);
+        }
+
     }
 }

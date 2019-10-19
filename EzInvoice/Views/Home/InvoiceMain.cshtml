@@ -1,18 +1,8 @@
-﻿
+﻿@model IEnumerable<Invoice>
+
 @{
     Layout = "_MainLayout";
 }
-
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/lib/twitter-bootstrap/css/bootstrap.css" />
-    <title>InvoiceMain</title>
-</head>
-<body>
-
 <div class="jumbotron text-center">
     <h1>Main Invoices Page</h1>
 </div>
@@ -22,20 +12,29 @@
         <tr>
             <th>Client Name</th>
             <th>Invoice No.</th>
-            <th>Date</th>
+            <th>Date Issued</th>
+            <th>Date Due</th>
+            <th>Invoice Status</th>
             <th>View Invoice</th>
         </tr>
     </thead>
     <tbody>
-    @*@foreach () {
-        @*<tr>
-            <td>@r.Name</td>
-            <td>@r.Email</td>
-            <td>@r.Phone</td>
+    @foreach (var invoice in Model) {
+        <tr>
+            <td>@invoice.Client</td>
+            <td>@invoice.Id</td>
+            <td>@invoice.Date_of_issue</td>
+            <td>@invoice.Due_date</td>
+            @if (invoice.Paid == false)
+            {
+                <td>Outstanding</td>
+            }
+            else
+            {
+                <td>Paid</td>
+            }
+            <td><a asp-action="InvoiceDetail" asp-route-id="@invoice.Id">View Invoice</a></td>
         </tr>
-    }*@
+    }
     </tbody>
 </table>
-
-</body>
-</html>
