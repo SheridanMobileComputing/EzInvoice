@@ -19,7 +19,7 @@ namespace EzInvoice.Controllers
 
         public IActionResult Login()
         {
-            //an empty loginattempt object will tell the View to render the Login page as
+            //an empty login attempt object will tell the View to render the Login page as
             //  if no attempt has yet been made.
             return View("Login", new LoginAttempt());
         }
@@ -34,6 +34,8 @@ namespace EzInvoice.Controllers
 
             return View("Login", attempt);
         }
+
+
         public IActionResult Signup()
         {
             return View();
@@ -45,15 +47,18 @@ namespace EzInvoice.Controllers
             return View("Error", 404);
         }
 
+
         public IActionResult Dashboard()
         {
             return View("Dashboard");
         }
 
+
         public IActionResult InvoiceMain()
         {
             return View("InvoiceMain", Repository.InvoiceList);
         }
+
 
         public IActionResult InvoiceDetail(int id)
         {

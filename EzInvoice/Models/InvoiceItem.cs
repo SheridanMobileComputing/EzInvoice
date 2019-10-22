@@ -7,10 +7,14 @@ namespace EzInvoice.Models
 {
     public class InvoiceItem
     {
-        public int Id { get; set; }
-        public float Quantity { get; set; }
-        public string Description { get; set; }
-        public float Cost_each { get; set; }
+        public string ItemNo { get; set; }
+        public string ItemDescription { get; set; }
+        public double Cost { get; set; }
+        public double Quantity { get; set; }
 
+        public double Total()
+        {
+            return Math.Round(Cost * Quantity, 2);
+        }
     }
 }
