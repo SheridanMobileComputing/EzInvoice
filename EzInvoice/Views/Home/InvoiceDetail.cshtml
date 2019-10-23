@@ -21,7 +21,7 @@ https://bootsnipp.com/snippets/9gjD
     <div class="row">
         <div class="col-xs-12">
             <div class="invoice-title">
-                <h2>EZInvoice</h2><h3 class="pull-right">Invoice # @Model.InvoiceNumber</h3>
+                <h2>EZInvoice</h2><h3 class="pull-right">Invoice # @Model.Id</h3>
             </div>
             <hr>
             <div class="row">
@@ -123,7 +123,7 @@ https://bootsnipp.com/snippets/9gjD
 
 
 <div class="text-center">
-    <button href="#" class="btn btn-success">Pay Invoice</button>
+    <a asp-action="PayInvoice" asp-route-id="@Model.Id" type="button" class="btn btn-success">Pay Invoice</a>
 </div>
 
 

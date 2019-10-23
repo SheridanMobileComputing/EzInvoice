@@ -71,5 +71,15 @@ namespace EzInvoice.Controllers
             return View("InvoiceDetail", request);
         }
 
+        public IActionResult PayInvoice(int id)
+        {
+            var request = Repository.InvoiceList.SingleOrDefault(r => r.Id == id);
+
+            if (request == null)
+            {
+                return View("Error");
+            }
+            return View("PayInvoice", request);
+        }
     }
 }

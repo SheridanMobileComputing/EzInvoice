@@ -7,7 +7,7 @@ namespace EzInvoice.Models
 {
     public class Invoice
     {
-        public int InvoiceNumber = 1000;
+        private int InvoiceNumber = 1000;
         public int Id { get; set; }
         public DateTime Date_of_issue { get; set; }
         public DateTime Due_date { get; set; }

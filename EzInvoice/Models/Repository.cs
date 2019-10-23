@@ -11,7 +11,7 @@ namespace EzInvoice.Models
         // Example Clients
 
 
-        public static List<Client> ClientList = new List<Client>
+        private static List<Client> clients = new List<Client>
         {
             new Client { Name = "Jeremy Clark",  Street = "6969 Fake Street", City = "Oakville", Province = "Ontario", Postal_code = "X9X9X9X", Country = "Canada", Email = "jclark@sheridancollege.ca"},
             new Client { Name = "Apple Inc", Street = "1 Apple Park Way", City = "Cupertino", Province = "California", Postal_code = "95014", Country = "United States",Email = "apple@support.ca"},
@@ -32,17 +32,19 @@ namespace EzInvoice.Models
         // Example Invoice Data to Test the system
         private static List<Invoice> invoices = new List<Invoice>
         {
-            new Invoice { Id = 1000, Client = ClientList[0], Date_of_issue = new DateTime(2015, 5, 1), Due_date = new DateTime(2018, 3, 11), Paid = false, Tax_rate = 0.13f, Items = ItemList },
-            new Invoice { Id = 1001, Client = ClientList[1], Date_of_issue = new DateTime(2017, 8, 14), Due_date = new DateTime(2018, 4, 15), Paid = true, Tax_rate = 0.13f, Items = ItemList },
-            new Invoice { Id = 1002, Client = ClientList[2], Date_of_issue = new DateTime(2018, 2, 25), Due_date = new DateTime(2018, 4, 30), Paid = false, Tax_rate = 0.13f, Items = ItemList },
+            new Invoice { Id = 1000, Client = clients[0], Date_of_issue = new DateTime(2015, 5, 1), Due_date = new DateTime(2018, 3, 11), Paid = false, Tax_rate = 0.13f, Items = ItemList },
+            new Invoice { Id = 1001, Client = clients[1], Date_of_issue = new DateTime(2017, 8, 14), Due_date = new DateTime(2018, 4, 15), Paid = true, Tax_rate = 0.13f, Items = ItemList },
+            new Invoice { Id = 1002, Client = clients[2], Date_of_issue = new DateTime(2018, 2, 25), Due_date = new DateTime(2018, 4, 30), Paid = false, Tax_rate = 0.13f, Items = ItemList },
         };
-
-
-
 
 
         // Return the Invoice List
         public static IEnumerable<Invoice> InvoiceList
         { get { return invoices; } }
+
+
+        // Return the Client List
+    public static IEnumerable<Client> ClientList
+    { get { return clients; } }
     }
 }

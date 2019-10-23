@@ -1,0 +1,21 @@
+﻿@model Invoice
+
+@{
+    Layout = "_OtherLayout";
+}
+
+@if (Model.Paid == false)
+{
+    <h1 class="text-center">Thank you for Paying the Invoice!</h1>
+    <p class="text-center">Please feel free to return to the Dashboard.</p>
+    Model.Paid = true;
+}
+else
+{
+    <h1 class="text-center">This Invoice Has already been paid.</h1>
+    <p class="text-center">Please feel free to return to the Dashboard.</p>
+}
+
+<div class="text-center">
+    <a type="button" class="btn btn-success" asp-controller="Home" asp-action="Dashboard">Return to Dashboard</a>
+</div>
