@@ -9,6 +9,7 @@ namespace EzInvoice.Models
     public static class Repository
     {
         // Example Clients
+        public static int invoiceNo = 1003;
 
 
         private static List<Client> clients = new List<Client>
@@ -43,8 +44,15 @@ namespace EzInvoice.Models
         { get { return invoices; } }
 
 
+        // Add new Invoice to List
+        public static void AddInvoice(Invoice invoice)
+        {
+            invoices.Add(invoice);
+        }
+
+
         // Return the Client List
-    public static IEnumerable<Client> ClientList
+        public static IEnumerable<Client> ClientList
     { get { return clients; } }
     }
 }

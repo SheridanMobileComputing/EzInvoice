@@ -9,14 +9,15 @@
 
 <table class="table table-sm table-striped table-bordered">                
     <thead>
-        <tr>
-            <th>Client Name</th>
-            <th>Invoice No.</th>
-            <th>Date Issued</th>
-            <th>Date Due</th>
-            <th>Invoice Status</th>
-            <th>View Invoice</th>
-        </tr>
+    <tr>
+        <th>Client Name</th>
+        <th>Invoice No.</th>
+        <th>Date Issued</th>
+        <th>Date Due</th>
+        <th>Invoice Status</th>
+        <th>Edit Invoice</th>
+        <th>View Invoice</th>
+    </tr>
     </thead>
     <tbody>
     @foreach (var invoice in Model) {
@@ -33,8 +34,13 @@
             {
                 <td>Paid</td>
             }
+            <td><a asp-action="EditInvoice" asp-route-id="@invoice.Id">Edit Invoice</a></td>
             <td><a asp-action="InvoiceDetail" asp-route-id="@invoice.Id">View Invoice</a></td>
         </tr>
     }
     </tbody>
 </table>
+
+<div class="text-center">
+    <a asp-action="CreateInvoice" type="button" class="btn btn-primary">Create Invoice</a>
+</div>
