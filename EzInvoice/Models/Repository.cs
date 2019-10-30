@@ -8,9 +8,6 @@ namespace EzInvoice.Models
 {
     public static class Repository
     {
-        // Example Clients
-        public static int invoiceNo = 1003;
-
 
         private static List<Client> clients = new List<Client>
         {
@@ -33,9 +30,9 @@ namespace EzInvoice.Models
         // Example Invoice Data to Test the system
         private static List<Invoice> invoices = new List<Invoice>
         {
-            new Invoice { Id = 1000, Client = clients[0], Date_of_issue = new DateTime(2015, 5, 1), Due_date = new DateTime(2018, 3, 11), Paid = false, Tax_rate = 0.13f, Items = ItemList },
-            new Invoice { Id = 1001, Client = clients[1], Date_of_issue = new DateTime(2017, 8, 14), Due_date = new DateTime(2018, 4, 15), Paid = true, Tax_rate = 0.13f, Items = ItemList },
-            new Invoice { Id = 1002, Client = clients[2], Date_of_issue = new DateTime(2018, 2, 25), Due_date = new DateTime(2018, 4, 30), Paid = false, Tax_rate = 0.13f, Items = ItemList },
+            new Invoice { Id = 0, Client = clients[0], Date_of_issue = new DateTime(2015, 5, 1), Due_date = new DateTime(2018, 3, 11), Paid = false, Tax_rate = 0.13f, Items = ItemList },
+            new Invoice { Id = 1, Client = clients[1], Date_of_issue = new DateTime(2017, 8, 14), Due_date = new DateTime(2018, 4, 15), Paid = true, Tax_rate = 0.13f, Items = ItemList },
+            new Invoice { Id = 2, Client = clients[2], Date_of_issue = new DateTime(2018, 2, 25), Due_date = new DateTime(2018, 4, 30), Paid = false, Tax_rate = 0.13f, Items = ItemList },
         };
 
 
@@ -47,12 +44,34 @@ namespace EzInvoice.Models
         // Add new Invoice to List
         public static void AddInvoice(Invoice invoice)
         {
+            invoice.Id = Repository.invoices.Count();
             invoices.Add(invoice);
         }
 
-
         // Return the Client List
         public static IEnumerable<Client> ClientList
-    { get { return clients; } }
+        { get { return clients; } }
+
+        //return a list of users by email
+        public static List<User> getAllUsers()
+        {
+            return new List<User>()
+            {
+                new User("Jim", "Jones", "jim@gmail.com", "hello"),
+                new User("Lenin", "Moreno", "president@ecuador.gov", "i_will_never_die"),
+                new User("Linus", "Techtips", "linus@youtube.com", "password"),
+            };
+        }
+        public static User getUserByEmail(string Email)
+        {
+            foreach(User user in getAllUsers())
+            {
+                if(user.EmailAddress == Email)
+                {
+                    return user;
+                }
+            }
+            return null;
+        }
     }
 }

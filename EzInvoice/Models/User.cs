@@ -7,23 +7,22 @@ namespace EzInvoice.Models
 {
     public class User
     {
-        private string First_name { get; set; }
-        private string Last_name { get; set; }
-        public string Email_address { get; set; }
-        private string Password { get; set; }
-        private string Street { get; set; }
-        private string City { get; set; }
-        private string Province { get; set; }
-        private string Postal_Code { get; set; }
-        private string Country { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string EmailAddress { get; set; }
+        public string Password { get; set; }
+        public string Street { get; set; }
+        public string City { get; set; }
+        public string Province { get; set; }
+        public string PostalCode { get; set; }
+        public string Country { get; set; }
 
-        public static User getUser(string name)
+        public User(string FirstName, string LastName, string EmailAddress, string Password)
         {
-            return new User
-            {
-                First_name = "Jam",
-                Last_name = "Smith",
-            };
+            this.FirstName = FirstName;
+            this.LastName = LastName;
+            this.EmailAddress = EmailAddress;
+            this.Password = Password;
         }
 
     }

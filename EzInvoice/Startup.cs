@@ -16,6 +16,11 @@ namespace EzInvoice
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+
+            services.AddSession(sessionOptions =>
+            {
+                sessionOptions.IdleTimeout = TimeSpan.FromSeconds(60);
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -29,6 +34,7 @@ namespace EzInvoice
 
             app.UseStatusCodePagesWithReExecute("/error/{0}");
 
+            app.UseSession();//this must be above app.UseMVC
             app.UseMvcWithDefaultRoute();
             app.UseStaticFiles();
         }

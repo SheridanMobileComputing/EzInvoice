@@ -16,11 +16,17 @@ namespace EzInvoice.Models
         }
         public bool wasSuccessful()
         {
-            if( Email_address == "bill@gmail.com" &&
-                Password      == "1234")
+            User UserAccount = Repository.getUserByEmail(Email_address);
+            if(UserAccount == null)
+            {
+                return false;
+            }
+
+            if(UserAccount.Password == Password)
             {
                 return true;
             }
+
             return false;
         }
     }

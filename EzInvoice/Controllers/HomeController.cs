@@ -4,17 +4,29 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 
 namespace EzInvoice.Controllers
 {
     public class HomeController : Controller
     {
+
+        private bool LoggedIn()
+        {
+            return !string.IsNullOrEmpty(HttpContext.Session.GetString("EmailAddress"));
+        }
         //default route: "index" or "/"
         public IActionResult Index()
         {
-            //check to see if the user has logged in already, if they have not:
-            return Login();
-            //else, direct to the main hub.
+            //if we're not logged in...
+            if(!LoggedIn())
+            {
+                return Login();
+            }
+            else
+            {
+                return Dashboard();
+            }
         }
 
         public IActionResult Login()
@@ -29,16 +41,39 @@ namespace EzInvoice.Controllers
         {
             if(attempt.wasSuccessful())
             {
+                HttpContext.Session.SetString("EmailAddress", attempt.Email_address);
                 return Dashboard();
             }
 
             return View("Login", attempt);
         }
 
+        public IActionResult Logout()
+        {
+            if (LoggedIn())
+            {
+                HttpContext.Session.Clear();
+            }
+            return Index();
+        }
+
 
         public IActionResult Signup()
         {
             return View();
+        }
+
+        public IActionResult MyAccount()
+        {
+            if(LoggedIn())
+            {
+                User activeUser = Repository.getUserByEmail(HttpContext.Session.GetString("EmailAddress"));
+                if(activeUser != null)
+                {
+                    return View("AccountInfo", activeUser);
+                }
+            }
+            return Login();
         }
 
         [Route("error/404")]
@@ -70,8 +105,7 @@ namespace EzInvoice.Controllers
         {
             if (ModelState.IsValid)
             {
-                invoice.Id = Repository.invoiceNo;
-                Repository.invoiceNo += 1;
+
                 Repository.AddInvoice(invoice);
                 return View("Confirmation", invoice);
             }

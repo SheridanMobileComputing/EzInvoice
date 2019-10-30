@@ -26,42 +26,56 @@
     </button>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent"> <!-- Collapsible Container -->
-        <div class="navbar-nav mr-auto"> <!-- Nav Bar Items in List -->
+        <div class="navbar-nav mr-auto">
+            <!-- Nav Bar Items in List -->
 
-            <div class="nav-item active"> <!-- Home Button -->
+            <div class="nav-item active">
+                <!-- Home Button -->
                 <a class="nav-link" asp-controller="Home" asp-action="Dashboard">
                     <span class="fas fa-home"></span> Dashboard
                     <span class="sr-only">(current)</span>
                 </a>
             </div> <!-- Home Button -->
 
-            <div class="nav-item"> <!-- Clients button -->
+            <div class="nav-item">
+                <!-- Clients button -->
                 <a class="nav-link" asp-controller="Home" asp-action="">
                     <span class="fas fa-users"></span> Clients
                     <span class="sr-only">(current)</span>
                 </a>
             </div> <!-- Clients button -->
 
-            <div class="nav-item"> <!-- Invoices button -->
+            <div class="nav-item">
+                <!-- Invoices button -->
                 <a class="nav-link" asp-controller="Home" asp-action="InvoiceMain">
                     <span class="fas fa-file-invoice"></span> Invoices
                     <span class="sr-only">(current)</span>
                 </a>
             </div> <!-- Invoices button -->
-        
-            <div class="nav-item"> <!-- Financial button -->
+
+            <div class="nav-item">
+                <!-- Financial button -->
                 <a class="nav-link" asp-controller="Home" asp-action="">
                     <span class="far fa-folder"></span> Financial
                     <span class="sr-only">(current)</span>
                 </a>
             </div> <!-- Financial button -->
 
-            <div class="nav-item"> <!-- MyAccount button -->
-                <a class="nav-link" asp-controller="Home" asp-action="">
+            <div class="nav-item">
+                <!-- MyAccount button -->
+                <a class="nav-link" asp-controller="Home" asp-action="MyAccount">
                     <span class="far fa-user-circle"></span> My Account
                     <span class="sr-only">(current)</span>
                 </a>
             </div> <!-- MyAccount button -->
+
+            <div class="nav-item">
+                <!-- Logout button -->
+                <a class="nav-link" asp-controller="Home" asp-action="Logout">
+                    <span class="far fa-user-circle"></span> Log Out
+                    <span class="sr-only">(current)</span>
+                </a>
+            </div> <!-- Logout button -->
 
         </div> <!-- Nav Bar Items in List -->
     </div> <!-- Collapsible Container -->
