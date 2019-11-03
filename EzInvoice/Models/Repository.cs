@@ -48,9 +48,28 @@ namespace EzInvoice.Models
             invoices.Add(invoice);
         }
 
+        // Remove Invoice from List
+        public static void DeleteInvoice(Invoice invoice)
+        {
+            for (int i = 0; i < invoices.Count; i++)
+            {
+                if (invoices[i].Id == invoice.Id)
+                {
+                    invoices.Remove(invoices[i]);
+                }
+            }
+        }
+
         // Return the Client List
         public static IEnumerable<Client> ClientList
-        { get { return clients; } }
+        {
+            get { return clients; }
+        }
+
+        public static List<Client> getAllClients()
+        {
+            return clients;
+        }
 
         //return a list of users by email
         public static List<User> getAllUsers()

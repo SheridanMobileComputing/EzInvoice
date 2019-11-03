@@ -7,7 +7,7 @@
     <h1>Main Invoices Page</h1>
 </div>
 
-<table class="table table-sm table-striped table-bordered">                
+<table class="table table-sm table-striped table-bordered text-center">                
     <thead>
     <tr>
         <th>Client Name</th>
@@ -17,6 +17,7 @@
         <th>Invoice Status</th>
         <th>Edit Invoice</th>
         <th>View Invoice</th>
+        <th>Delete Invoice</th>
     </tr>
     </thead>
     <tbody>
@@ -34,8 +35,9 @@
             {
                 <td>Paid</td>
             }
-            <td><a asp-action="EditInvoice" asp-route-id="@invoice.Id">Edit Invoice</a></td>
-            <td><a asp-action="InvoiceDetail" asp-route-id="@invoice.Id">View Invoice</a></td>
+            <td><a asp-action="EditInvoice" asp-route-id="@invoice.Id" type="button" class="btn btn-secondary">Edit Invoice</a></td>
+            <td><a asp-action="InvoiceDetail" asp-route-id="@invoice.Id" type="button" class="btn btn-info">View Invoice</a></td>
+            <td><a asp-action="DeleteInvoice" asp-route-id="@invoice.Id" type="button" class="btn btn-danger">Delete Invoice</a></td>
         </tr>
     }
     </tbody>

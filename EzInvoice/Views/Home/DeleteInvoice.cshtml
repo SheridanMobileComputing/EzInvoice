@@ -1,0 +1,23 @@
+﻿@model Invoice
+
+@{
+    Layout = "_OtherLayout";
+}
+
+<div class="container">
+    <h1 class="jumbotron text-center">Delete Invoice</h1>
+</div>
+
+<h3 class="text-center">Are you sure you want to delete invoice @Model.Id ?</h3>
+
+<div class="panel panel-success">
+    <div class="panel-body">
+        <form class="p-a-1" asp-action="DeleteInvoice" method="post">
+            <div class="text-center">
+                <button class="btn btn-danger" type="submit">
+                    Delete Invoice
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

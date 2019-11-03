@@ -107,13 +107,31 @@ namespace EzInvoice.Controllers
             {
 
                 Repository.AddInvoice(invoice);
-                return View("Confirmation", invoice);
+                return View("InvoiceCreationConfirmation", invoice);
             }
             else
             {
                 // there is a validation error              
                 return View();
             }
+        }
+
+        public IActionResult DeleteInvoice(int id)
+        {
+            var request = Repository.InvoiceList.SingleOrDefault(r => r.Id == id);
+
+            if (request == null)
+            {
+                return View("Error");
+            }
+            return View("DeleteInvoice", request);
+        }
+
+        [HttpPost]
+        public IActionResult DeleteInvoice(Invoice invoice)
+        {
+            Repository.DeleteInvoice(invoice);
+            return View("InvoiceDeletionConfirmation");
         }
 
 
