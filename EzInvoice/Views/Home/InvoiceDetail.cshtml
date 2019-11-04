@@ -1,136 +1,120 @@
-﻿<!-- 
-Base code for this invoice came from: 
+﻿<!--
+Base code for this invoice came from:
 https://bootsnipp.com/snippets/9gjD
 -->
 
 @model Invoice
 
-<!DOCTYPE html>
+@{
+    Layout = "_OtherLayout";
+}
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>InvoiceDetail</title>
-    <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
-    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-</head>
-<body>
-
-<div class="container">
-    <div class="row">
-        <div class="col-xs-12">
-            <div class="invoice-title">
-                <h2>EZInvoice</h2><h3 class="pull-right">Invoice # @Model.Id</h3>
-            </div>
-            <hr>
-            <div class="row">
-                <div class="col-xs-6">
-                    <address>
-                        <strong>Billed To:</strong><br>
-                        @Model.Client.Name<br>
-                        @Model.Client.Street<br>
-                        @Model.Client.City, @Model.Client.Province <br>
-                        @Model.Client.Postal_code @Model.Client.Country
-                    </address>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="invoice-title">
+                    <h2>EZInvoice</h2><h3 class="pull-right">Invoice # @Model.Id</h3>
                 </div>
-                <div class="col-xs-6 text-right">
-                    <address>
-                        <strong>Shipped To:</strong><br>
-                        @Model.Client.Name<br>
-                        @Model.Client.Street<br>
-                        @Model.Client.City, @Model.Client.Province <br>
-                        @Model.Client.Postal_code @Model.Client.Country
-                    </address>
+                <hr>
+                <div class="row">
+                    <div class="col-xs-6">
+                        <address>
+                            <strong>Billed To:</strong><br>
+                            @Model.Client.Name<br>
+                            @Model.Client.Street<br>
+                            @Model.Client.City, @Model.Client.Province <br>
+                            @Model.Client.Postal_code @Model.Client.Country
+                        </address>
+                    </div>
+                    <div class="col-xs-6 text-right">
+                        <address>
+                            <strong>Shipped To:</strong><br>
+                            @Model.Client.Name<br>
+                            @Model.Client.Street<br>
+                            @Model.Client.City, @Model.Client.Province <br>
+                            @Model.Client.Postal_code @Model.Client.Country
+                        </address>
+                    </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-6">
-                    <address>
-                        <strong>Client Email:</strong><br>
-                        @Model.Client.Email
-                    </address>
-                </div>
-                <div class="col-xs-6 text-right">
-                    <address>
-                        <strong>Order Date:</strong><br>
-                        @Model.Date_of_issue<br><br>
-                    </address>
+                <div class="row">
+                    <div class="col-xs-6">
+                        <address>
+                            <strong>Client Email:</strong><br>
+                            @Model.Client.Email
+                        </address>
+                    </div>
+                    <div class="col-xs-6 text-right">
+                        <address>
+                            <strong>Order Date:</strong><br>
+                            @Model.Date_of_issue<br><br>
+                        </address>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="row">
-        <div class="col-md-12">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title"><strong>Order summary</strong></h3>
-                </div>
-                <div class="panel-body">
-                    <div class="table-responsive">
-                        <table class="table table-condensed">
-                            <thead>
-                                <tr>
-                                    <td class="text-center"><strong>Item Number</strong></td>
-                                    <td class="text-center"><strong>Description</strong></td>
-                                    <td class="text-center"><strong>Cost</strong></td>
-                                    <td class="text-center"><strong>Quantity</strong></td>
-                                    <td class="text-center"><strong>Totals</strong></td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @for (int i = 0; i < Model.Items.Count(); i++)
-                                {
-                                    <tr class="text-center">
-                                        <td>@Model.Items[i].ItemNo</td>
-                                        <td>@Model.Items[i].ItemDescription</td>
-                                        <td>@Model.Items[i].Cost</td>
-                                        <td>@Model.Items[i].Quantity</td>
-                                        <td>$ @Model.Items[i].Total()</td>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title"><strong>Order summary</strong></h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="table-responsive">
+                            <table class="table table-condensed">
+                                <thead>
+                                    <tr>
+                                        <td class="text-center"><strong>Item Number</strong></td>
+                                        <td class="text-center"><strong>Description</strong></td>
+                                        <td class="text-center"><strong>Cost</strong></td>
+                                        <td class="text-center"><strong>Quantity</strong></td>
+                                        <td class="text-center"><strong>Totals</strong></td>
                                     </tr>
-                                }
-                            
-                                <tr class="text-center">
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td><strong>Subtotal</strong></td>
-                                    <td>$@Model.Total()</td>
-                                </tr>
-                                <tr class="text-center">
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td><strong>Tax</strong></td>
-                                    <td>$@Model.Tax()</td>
-                                </tr>
-                                <tr class="text-center">
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td><strong>Total</strong></td>
-                                    <td>$ @Math.Round(Model.Tax() + Model.Total(), 2)</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                    @for (int i = 0; i < Model.Items.Count(); i++)
+                                    {
+                                        <tr class="text-center">
+                                            <td>@Model.Items[i].ItemNo</td>
+                                            <td>@Model.Items[i].ItemDescription</td>
+                                            <td>@Model.Items[i].Cost</td>
+                                            <td>@Model.Items[i].Quantity</td>
+                                            <td>$ @Model.Items[i].Total()</td>
+                                        </tr>
+                                    }
+
+                                    <tr class="text-center">
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td><strong>Subtotal</strong></td>
+                                        <td>$@Model.Total()</td>
+                                    </tr>
+                                    <tr class="text-center">
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td><strong>Tax</strong></td>
+                                        <td>$@Model.Tax()</td>
+                                    </tr>
+                                    <tr class="text-center">
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td><strong>Total</strong></td>
+                                        <td>$ @Math.Round(Model.Tax() + Model.Total(), 2)</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
 
-<div class="text-center">
-    <a asp-action="EditInvoice" asp-route-id="@Model.Id" type="button" class="btn btn-info">Edit Invoice</a>
-    <a asp-action="PayInvoice" asp-route-id="@Model.Id" type="button" class="btn btn-success">Pay Invoice</a>
-</div>
-
-
-
-</body>
-</html>
-
-
-
+    <div class="text-center">
+        <a asp-action="EditInvoice" asp-route-id="@Model.Id" type="button" class="btn btn-info">Edit Invoice</a>
+        <a asp-action="PayInvoice" asp-route-id="@Model.Id" type="button" class="btn btn-success">Pay Invoice</a>
+    </div>
