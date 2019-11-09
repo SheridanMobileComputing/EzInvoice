@@ -16,17 +16,12 @@ namespace EzInvoice.Models
         public string Country { get; set; }
         public string Email { get; set; }
 
-        public string getName()
-        {
-            return Name;
-        }
         public int CalcBalance()
         {
 
             /* Iterate through all invoices with this client
              * and return total value (positive or negative)
              * of this client's invoices*/
-
             return 0;
         }
 

@@ -7,6 +7,7 @@ namespace EzInvoice.Models
 {
     public class InvoiceItem
     {
+        public int Id { get; set; }
         public string ItemNo { get; set; }
         public string ItemDescription { get; set; }
         public double Cost { get; set; }
