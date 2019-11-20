@@ -1,6 +1,6 @@
 ﻿
 @{
-    Layout = null;
+    Layout = "_AuthLayout";
 }
 
 <!DOCTYPE html>
@@ -11,5 +11,30 @@
     <title>Signup</title>
 </head>
 <body>
+    <form method="post">
+        <fieldset>
+            <legend>Sign Up</legend>
+            <div>
+                <label for="FirstName">First Name:</label>
+                <input class="form-control" type="text" name="Name" value="" />
+            </div>
+            <div>
+                <label for="LastName">Last Name:</label>
+                <input class="form-control" type="text" name="Province" value="" />
+            </div>
+            <div>
+                <label for="EmailAddress">Email Address:</label>
+                <input class="form-control" type="text" name="EmailAddress" value="" />
+            </div>
+            <div>
+                <label for="inputPassword">Email Address:</label>
+                <input class="form-control" type="password" name="inputPassword" value="" />
+            </div>
+            <div>
+                <button type="button" value="Submit" class="submit btn btn-primary">Submit</button>
+            </div>
+        </fieldset>
+    </form>
+
 </body>
 </html>

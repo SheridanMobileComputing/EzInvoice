@@ -31,9 +31,8 @@
             {
                 <td>Outstanding</td>
             }
-            else
-            {
-                <td>Paid</td>
+            else { 
+                 <td>Paid</td>
             }
             <td><a asp-action="EditInvoice" asp-route-id="@invoice.Id" class="btn btn-secondary">Edit Invoice</a></td>
             <td><a asp-action="InvoiceDetail" asp-route-id="@invoice.Id" class="btn btn-info">View Invoice</a></td>
