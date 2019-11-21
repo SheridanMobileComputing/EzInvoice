@@ -107,6 +107,7 @@ namespace EzInvoice.Controllers
             {
 
                 Repository.AddInvoice(invoice);
+                
                 return View("InvoiceCreationConfirmation", invoice);
             }
             else

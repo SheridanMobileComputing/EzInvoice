@@ -15,6 +15,13 @@ namespace EzInvoice.Models
             new Client { Id = 2, Name = "Richard Sackler", Street = "24 Oxycontin Rd", City = "Austin", Province = "Texas", Postal_code = "78652", Country = "United States", Email = "dicksack@tx.com"},
         };
 
+        private static List<User> users = new List<User>
+        { 
+                       new User("Jim", "Jones", "jim@gmail.com", "hello"),
+                            new User("Lenin", "Moreno", "president@ecuador.gov", "i_will_never_die"),
+                            new User("Linus", "Techtips", "linus@youtube.com", "password"),
+                        };
+
         // Example Invoice Items to test the Invoices
         private static List<InvoiceItem> ItemList = new List<InvoiceItem>
         {
@@ -44,6 +51,13 @@ namespace EzInvoice.Models
         {
             invoice.Id = Repository.invoices.Count();
             invoices.Add(invoice);
+
+            var dbContext = new EZInvoiceDB();
+            var count = (from t in dbContext.Invoices
+                         select t).Count();
+            invoice.Id = count + 1;
+            dbContext.Invoices.Add(invoice);
+            dbContext.SaveChanges();
         }
 
         // Remove Invoice from List
@@ -56,6 +70,13 @@ namespace EzInvoice.Models
                     invoices.Remove(invoices[i]);
                 }
             }
+
+            var dbContext = new EZInvoiceDB();
+
+            dbContext.Invoices.Remove(invoice);
+
+            dbContext.SaveChanges();
+
         }
 
         // Return the Client List
@@ -69,15 +90,20 @@ namespace EzInvoice.Models
             return clients;
         }
 
+        public static void AddUser(User user)
+        {
+            user.Id = Repository.users.Count();
+            users.Add(user);
+
+        }
+
         //return a list of users by email
         public static List<User> getAllUsers()
         {
-            return new List<User>()
-            {
-                new User("Jim", "Jones", "jim@gmail.com", "hello"),
-                new User("Lenin", "Moreno", "president@ecuador.gov", "i_will_never_die"),
-                new User("Linus", "Techtips", "linus@youtube.com", "password"),
-            };
+            /*            return new List<User>()
+                        ;*/
+
+            return users;
         }
         public static User getUserByEmail(string Email)
         {
