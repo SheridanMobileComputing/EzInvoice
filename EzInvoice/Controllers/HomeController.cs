@@ -5,11 +5,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 
 namespace EzInvoice.Controllers
 {
     public class HomeController : Controller
     {
+        /*private readonly EZInvoiceDB _context;*/
 
         private bool LoggedIn()
         {
@@ -89,9 +91,18 @@ namespace EzInvoice.Controllers
         }
 
 
-        public IActionResult InvoiceMain()
+        /*        public IActionResult InvoiceMain()
+                {
+                    return View("InvoiceMain", Repository.InvoiceList);
+
+                }*/
+
+        // GET: Players
+        public async Task<IActionResult> InvoiceMain()
         {
-            return View("InvoiceMain", Repository.InvoiceList);
+            var _context = new EZInvoiceDB();
+
+            return View("InvoiceMain", await _context.Invoices.ToListAsync());
         }
 
         [HttpGet]
