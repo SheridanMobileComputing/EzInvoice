@@ -2,3 +2,24 @@
     background-color: blanchedalmond
 
 }
+
+.form-box{
+    width:50%;
+    margin-left:25%;
+    margin-top:3%
+
+}
+
+.submit{
+    margin-top:3%
+}
+
+.bg-box{
+    background-color:gainsboro;
+    width: 50%;
+    height:90%;
+    margin-left:25%;
+    padding-top:3%;
+    padding-bottom:3%;
+
+}
