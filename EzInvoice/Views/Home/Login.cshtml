@@ -1,7 +1,7 @@
 ﻿@model EzInvoice.Models.LoginAttempt
 
 @{
-    Layout = "";
+    Layout = "_LoginLayout";
 }
 
 <!DOCTYPE html>
@@ -9,14 +9,18 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>Login</title>
+    <title class="title">Login</title>
 </head>
 <body>
-    <h1>EzInvoice 0.4.2.0</h1>
-    <h2>Login</h2>
+    <div class="border border-dark main-header">
+        <h1 class="text-center font-weight-bold"> Welcome to EzInvoice </h1>
+    </div>
+  
+     
+    <h2 class="font-weight-bold login">Login</h2>
     @if (!Model.emptyAttempt())
     {
-        <h3>INFORMATION INCORRECT. TRY AGAIN.</h3>
+        <h3 class="text-danger">INFORMATION INCORRECT. TRY AGAIN.</h3>
     }
 
     @using (Html.BeginForm("login", "Home", FormMethod.Post))
@@ -26,8 +30,8 @@
         <input type="submit" value="Login" />
     }
 
-    <div class="text-center"> 
-        <a asp-action="SignUp" class="btn btn-primary">Don't Have an Account? SignUp</a>
+    <div> 
+        <a asp-action="SignUp" class="btn btn-success signUp">Don't Have an Account? SignUp</a>
     </div>
 </body>
 </html>

@@ -1,5 +1,22 @@
 ﻿ body {
-
-
-
+     background-color:blanchedalmond
 }
+
+ .signUp{
+     margin-top: 10%
+ }
+
+ .title{
+     margin-top: 10%
+ }
+
+ .main-header{
+     width: 80%;
+     margin-left: 10%
+ }
+
+ .login{
+     margin-top:5%;
+     margin-left: 2%
+ }
+
