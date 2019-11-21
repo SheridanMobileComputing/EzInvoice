@@ -8,17 +8,19 @@ namespace EzInvoice.Models
     public static class Repository
     {
 
-        public static int getDbCount(String table)
+        public static int getDbCount(String table, EZInvoiceDB dbContext)
         {
-            var dbContext = new EZInvoiceDB();
 
             switch (table)
             {
                 //Invoice
                 case "Invoices":
-                    var count = (from t in dbContext.Invoices
+                    return (from t in dbContext.Invoices
                          select t).Count();
-                    return count;
+
+                case "Users":
+                    return (from t in dbContext.Users
+                                 select t).Count();
 
                 default:
                     return -1;
@@ -69,11 +71,14 @@ namespace EzInvoice.Models
         // Add new Invoice to List
         public static void AddInvoice(Invoice invoice)
         {
+            //Adding to temp respository (to be removed?)
             invoice.Id = Repository.invoices.Count();
             invoices.Add(invoice);
-            var dbContext = new EZInvoiceDB();
 
-            var count = getDbCount("Invoices");
+            //Adding to db
+            var dbContext = new EZInvoiceDB();
+            //Setting the ID to begin at 1 and add based off the total number within the table
+            var count = getDbCount("Invoices", dbContext);
             invoice.Id = count + 1;
             dbContext.Invoices.Add(invoice);
             dbContext.SaveChanges();
@@ -90,10 +95,9 @@ namespace EzInvoice.Models
                 }
             }
 
+            //Removing from database
             var dbContext = new EZInvoiceDB();
-
             dbContext.Invoices.Remove(invoice);
-
             dbContext.SaveChanges();
 
         }
@@ -113,6 +117,14 @@ namespace EzInvoice.Models
         {
             user.Id = Repository.users.Count();
             users.Add(user);
+
+            //Adding to db
+            var dbContext = new EZInvoiceDB();
+            //Setting the ID to begin at 1 and add based off the total number within the table
+            var count = getDbCount("Users", dbContext);
+            user.Id = count + 1;
+            dbContext.Users.Add(user);
+            dbContext.SaveChanges();
 
         }
 
