@@ -8,6 +8,26 @@ namespace EzInvoice.Models
     public static class Repository
     {
 
+        public static int getDbCount(String table)
+        {
+            var dbContext = new EZInvoiceDB();
+
+            switch (table)
+            {
+                //Invoice
+                case "Invoices":
+                    var count = (from t in dbContext.Invoices
+                         select t).Count();
+                    return count;
+
+                default:
+                    return -1;
+            }
+
+
+
+        }
+
         private static List<Client> clients = new List<Client>
         {
             new Client { Id = 0, Name = "Jeremy Clark",  Street = "6969 Fake Street", City = "Oakville", Province = "Ontario", Postal_code = "X9X9X9X", Country = "Canada", Email = "jclark@sheridancollege.ca"},
@@ -51,10 +71,9 @@ namespace EzInvoice.Models
         {
             invoice.Id = Repository.invoices.Count();
             invoices.Add(invoice);
-
             var dbContext = new EZInvoiceDB();
-            var count = (from t in dbContext.Invoices
-                         select t).Count();
+
+            var count = getDbCount("Invoices");
             invoice.Id = count + 1;
             dbContext.Invoices.Add(invoice);
             dbContext.SaveChanges();
