@@ -14,13 +14,13 @@ namespace EzInvoice.Models
             new Client { Id = 1, Name = "Apple Inc", Street = "1 Apple Park Way", City = "Cupertino", Province = "California", Postal_code = "95014", Country = "United States",Email = "apple@support.ca"},
             new Client { Id = 2, Name = "Richard Sackler", Street = "24 Oxycontin Rd", City = "Austin", Province = "Texas", Postal_code = "78652", Country = "United States", Email = "dicksack@tx.com"},
         };
-
+        
         private static List<User> users = new List<User>
         { 
-                       new User("Jim", "Jones", "jim@gmail.com", "hello"),
+           /*            new User("Jim", "Jones", "jim@gmail.com", "hello"),
                             new User("Lenin", "Moreno", "president@ecuador.gov", "i_will_never_die"),
-                            new User("Linus", "Techtips", "linus@youtube.com", "password"),
-                        };
+                           new User("Linus", "Techtips", "linus@youtube.com", "password"),
+                       */ };
 
         // Example Invoice Items to test the Invoices
         private static List<InvoiceItem> ItemList = new List<InvoiceItem>

@@ -12,6 +12,8 @@ namespace EzInvoice.Models
         public string LastName { get; set; }
         public string EmailAddress { get; set; }
         public string Password { get; set; }
+
+        /*
         public string Street { get; set; }
         public string City { get; set; }
         public string Province { get; set; }
@@ -24,8 +26,9 @@ namespace EzInvoice.Models
             this.LastName = LastName;
             this.EmailAddress = EmailAddress;
             this.Password = Password;
-        }
 
+        }
+        */
     }
 
 }

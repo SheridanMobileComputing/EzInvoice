@@ -10,7 +10,12 @@ namespace EzInvoice.Controllers
 {
     public class HomeController : Controller
     {
+        private EZInvoiceDB _context; 
 
+/*        public HomeController( EZInvoiceDB context)
+        {
+            _context = context;
+        }*/
         private bool LoggedIn()
         {
             return !string.IsNullOrEmpty(HttpContext.Session.GetString("EmailAddress"));
@@ -63,6 +68,17 @@ namespace EzInvoice.Controllers
             return View();
         }
 
+        [HttpPost]
+        public async Task<IActionResult> Save(User user)
+        {
+            var dcontext = new EZInvoiceDB();
+
+            dcontext.Users.Add(user);
+      
+            await dcontext.SaveChangesAsync();
+
+            return RedirectToAction("Dashboard");
+        }
         public IActionResult MyAccount()
         {
             if(LoggedIn())

@@ -1,4 +1,4 @@
-﻿
+﻿@model EzInvoice.Models.User;
 @{
     Layout = "_AuthLayout";
 }
@@ -11,27 +11,29 @@
     <title>Signup</title>
 </head>
 <body>
-    <form method="post">
+    <form asp-action="Save" method="post">
         <fieldset>
+            <div asp-validation-summary="All"></div>
+
             <legend>Sign Up</legend>
             <div>
-                <label for="FirstName">First Name:</label>
-                <input class="form-control" type="text" name="Name" value="" />
+                <label asp-for="FirstName">First Name: </label>
+                <input asp-for="FirstName" />
             </div>
             <div>
-                <label for="LastName">Last Name:</label>
-                <input class="form-control" type="text" name="Province" value="" />
+                <label asp-for="LastName">Last Name: </label>
+                <input asp-for="LastName" />
             </div>
             <div>
-                <label for="EmailAddress">Email Address:</label>
-                <input class="form-control" type="text" name="EmailAddress" value="" />
+                <label asp-for="EmailAddress">Email Address:</label>
+                <input asp-for="EmailAddress" />
             </div>
             <div>
-                <label for="inputPassword">Email Address:</label>
-                <input class="form-control" type="password" name="inputPassword" value="" />
+                <label asp-for="Password">Password:</label>
+                <input asp-for="Password" />
             </div>
             <div>
-                <button type="button" value="Submit" class="submit btn btn-primary">Submit</button>
+                <input type="submit" name="submit" value="submit" />
             </div>
         </fieldset>
     </form>
