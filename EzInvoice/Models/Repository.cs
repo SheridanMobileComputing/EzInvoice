@@ -8,6 +8,28 @@ namespace EzInvoice.Models
     public static class Repository
     {
 
+        public static int getDbCount(String table, EZInvoiceDB dbContext)
+        {
+
+            switch (table)
+            {
+                //Invoice
+                case "Invoices":
+                    return (from t in dbContext.Invoices
+                         select t).Count();
+
+                case "Users":
+                    return (from t in dbContext.Users
+                                 select t).Count();
+
+                default:
+                    return -1;
+            }
+
+
+
+        }
+
         private static List<Client> clients = new List<Client>
         {
             new Client { Id = 0, Name = "Jeremy Clark",  Street = "6969 Fake Street", City = "Oakville", Province = "Ontario", Postal_code = "X9X9X9X", Country = "Canada", Email = "jclark@sheridancollege.ca"},
@@ -36,9 +58,9 @@ namespace EzInvoice.Models
         // Example Invoice Data to Test the system
         private static List<Invoice> invoices = new List<Invoice>
         {
-            new Invoice { Id = 0, Client = clients[0], Date_of_issue = new DateTime(2015, 5, 1), Due_date = new DateTime(2018, 3, 11), Paid = false, Tax_rate = 0.13f, Items = ItemList },
-            new Invoice { Id = 1, Client = clients[1], Date_of_issue = new DateTime(2017, 8, 14), Due_date = new DateTime(2018, 4, 15), Paid = true, Tax_rate = 0.13f, Items = ItemList },
-            new Invoice { Id = 2, Client = clients[2], Date_of_issue = new DateTime(2018, 2, 25), Due_date = new DateTime(2018, 4, 30), Paid = false, Tax_rate = 0.13f, Items = ItemList },
+          //  new Invoice { Id = 0, Client = clients[0], Date_of_issue = new DateTime(2015, 5, 1), Due_date = new DateTime(2018, 3, 11), Paid = false, Tax_rate = 0.13f, Items = ItemList },
+          //  new Invoice { Id = 1, Client = clients[1], Date_of_issue = new DateTime(2017, 8, 14), Due_date = new DateTime(2018, 4, 15), Paid = true, Tax_rate = 0.13f, Items = ItemList },
+          //  new Invoice { Id = 2, Client = clients[2], Date_of_issue = new DateTime(2018, 2, 25), Due_date = new DateTime(2018, 4, 30), Paid = false, Tax_rate = 0.13f, Items = ItemList },
         };
 
         // Return the Invoice List
@@ -49,12 +71,14 @@ namespace EzInvoice.Models
         // Add new Invoice to List
         public static void AddInvoice(Invoice invoice)
         {
+            //Adding to temp respository (to be removed?)
             invoice.Id = Repository.invoices.Count();
             invoices.Add(invoice);
 
+            //Adding to db
             var dbContext = new EZInvoiceDB();
-            var count = (from t in dbContext.Invoices
-                         select t).Count();
+            //Setting the ID to begin at 1 and add based off the total number within the table
+            var count = getDbCount("Invoices", dbContext);
             invoice.Id = count + 1;
             dbContext.Invoices.Add(invoice);
             dbContext.SaveChanges();
@@ -71,10 +95,9 @@ namespace EzInvoice.Models
                 }
             }
 
+            //Removing from database
             var dbContext = new EZInvoiceDB();
-
             dbContext.Invoices.Remove(invoice);
-
             dbContext.SaveChanges();
 
         }
@@ -94,6 +117,14 @@ namespace EzInvoice.Models
         {
             user.Id = Repository.users.Count();
             users.Add(user);
+
+            //Adding to db
+            var dbContext = new EZInvoiceDB();
+            //Setting the ID to begin at 1 and add based off the total number within the table
+            var count = getDbCount("Users", dbContext);
+            user.Id = count + 1;
+            dbContext.Users.Add(user);
+            dbContext.SaveChanges();
 
         }
 
