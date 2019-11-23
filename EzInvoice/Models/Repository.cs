@@ -44,6 +44,14 @@ namespace EzInvoice.Models
         {
             invoice.Id = Repository.invoices.Count();
             invoices.Add(invoice);
+
+            //Adding to db
+            var dbContext = new EZInvoiceDB();
+            //Setting the ID to begin at 1 and add based off the total number within the table
+            var count = getDbCount("Invoices", dbContext);
+            invoice.Id = count + 1;
+            dbContext.Invoices.Add(invoice);
+            dbContext.SaveChanges();
         }
 
         // Remove Invoice from List
@@ -56,6 +64,12 @@ namespace EzInvoice.Models
                     invoices.Remove(invoices[i]);
                 }
             }
+
+            //Removing from database
+            var dbContext = new EZInvoiceDB();
+            dbContext.Invoices.Remove(invoice);
+            dbContext.SaveChanges();
+
         }
 
         // Return the Client List
@@ -67,6 +81,21 @@ namespace EzInvoice.Models
         public static List<Client> getAllClients()
         {
             return clients;
+        }
+
+        public static void AddUser(User user)
+        {
+            user.Id = Repository.users.Count();
+            users.Add(user);
+
+            //Adding to db
+            var dbContext = new EZInvoiceDB();
+            //Setting the ID to begin at 1 and add based off the total number within the table
+            var count = getDbCount("Users", dbContext);
+            user.Id = count + 1;
+            dbContext.Users.Add(user);
+            dbContext.SaveChanges();
+
         }
 
         //return a list of users by email

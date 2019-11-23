@@ -1,5 +1,4 @@
-﻿@model EzInvoice.Models.LoginAttempt
-
+﻿@model EzInvoice.Models.User;
 @{
     Layout = "_LoginLayout";
 }
@@ -12,26 +11,32 @@
     <title class="title">Login</title>
 </head>
 <body>
-    <div class="border border-dark main-header">
-        <h1 class="text-center font-weight-bold"> Welcome to EzInvoice </h1>
-    </div>
-  
-     
-    <h2 class="font-weight-bold login">Login</h2>
+    <h1>EzInvoice 0.4.2.0</h1>
+    <h2>Login</h2>
     @if (!Model.emptyAttempt())
     {
-        <h3 class="text-danger">INFORMATION INCORRECT. TRY AGAIN.</h3>
+        <h3>INFORMATION INCORRECT. TRY AGAIN.</h3>
     }
 
-    @using (Html.BeginForm("login", "Home", FormMethod.Post))
-    {
-        @Html.TextBoxFor(loginAttempt => loginAttempt.Email_address, new { placeholder = "email", value = Model.Email_address });
-        @Html.TextBoxFor(loginAttempt => loginAttempt.Password, new { placeholder = "password", value = Model.Password });
-        <input type="submit" value="Login" />
-    }
+        @using (Html.BeginForm("login", "Home", FormMethod.Post))
+        {
+            @Html.TextBoxFor(loginAttempt => loginAttempt.Email_address, new { placeholder = "email", value = Model.Email_address });
+            @Html.TextBoxFor(loginAttempt => loginAttempt.Password, new { placeholder = "password", value = Model.Password });
+            <input type="submit" value="Login" />
+        }*@
 
-    <div> 
-        <a asp-action="SignUp" class="btn btn-success signUp">Don't Have an Account? SignUp</a>
+    <div>
+        <label asp-for="EmailAddress">Email Address: </label>
+        <input asp-for="EmailAddress" />
+    </div>
+
+    <div>
+        <label asp-for="Password">Password: </label>
+        <input asp-for="Password" />
+    </div>
+
+    <div class="text-center"> 
+        <a asp-action="SignUp" class="btn btn-primary">Don't Have an Account? SignUp</a>
     </div>
 </body>
 </html>
