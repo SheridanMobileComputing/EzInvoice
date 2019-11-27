@@ -7,16 +7,16 @@ namespace EzInvoice.Models
 {
     public class LoginAttempt
     {
-        public string Email_address { get; set; } = "";
+        public string EmailAddress { get; set; } = "";
         public string Password { get; set; } = "";
 
         public bool emptyAttempt()
         {
-            return (Email_address == "") && (Password == "");
+            return (EmailAddress == "") && (Password == "");
         }
         public bool wasSuccessful()
         {
-            User UserAccount = Repository.getUserByEmail(Email_address);
+            User UserAccount = Repository.getUserByEmail(EmailAddress);
             if(UserAccount == null)
             {
                 return false;

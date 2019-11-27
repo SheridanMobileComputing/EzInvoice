@@ -115,16 +115,16 @@ namespace EzInvoice.Models
 
         public static void AddUser(User user)
         {
-            user.Id = Repository.users.Count();
-            users.Add(user);
+/*            user.Id = Repository.users.Count();
+            users.Add(user);*/
 
             //Adding to db
             var dbContext = new EZInvoiceDB();
             //Setting the ID to begin at 1 and add based off the total number within the table
-            var count = getDbCount("Users", dbContext);
+/*            var count = getDbCount("Users", dbContext);
             user.Id = count + 1;
             dbContext.Users.Add(user);
-            dbContext.SaveChanges();
+            dbContext.SaveChanges();*/
 
         }
 
