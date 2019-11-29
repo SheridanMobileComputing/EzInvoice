@@ -26,6 +26,14 @@ namespace EzInvoice.Models
             this.Password = Password;
         }
 
+        public User(SignupAttempt signupAttempt)
+        {
+            this.FirstName = signupAttempt.FirstName;
+            this.LastName = signupAttempt.LastName;
+            this.EmailAddress = signupAttempt.EmailAddress;
+            this.Password = signupAttempt.Password;
+        }
+
     }
 
 }

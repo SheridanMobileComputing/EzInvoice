@@ -1,7 +1,9 @@
-﻿@{
+﻿@model Int32
+
+@{
     Layout = "_OtherLayout";
 }
 
 
-<h1 class="jumbotron text-center">ERROR</h1>
-<p class="text-center">We're sorry. An error occurred.</p>
+<h1 class="jumbotron text-center">ERROR @Model</h1>
+<p class="text-center">We're sorry. An error occurred with the code: @Model</p>

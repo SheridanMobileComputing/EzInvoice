@@ -13,6 +13,11 @@ namespace EzInvoice.Models
         public DbSet<InvoiceItem> InvoiceItems { get; set; }
         public DbSet<User> Users { get; set; }
 
+        public EZInvoiceDB(DbContextOptions<EZInvoiceDB> options) : base(options)
+        {
+
+        }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlite("Data Source=EZInvoice.db");

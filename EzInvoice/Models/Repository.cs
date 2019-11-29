@@ -5,8 +5,40 @@ using System.Threading.Tasks;
 
 namespace EzInvoice.Models
 {
-    public static class Repository
+    public class Repository
     {
+        private EZInvoiceDB _context;
+
+        public Repository(EZInvoiceDB context)
+        {
+            _context = context;
+        }
+        /*********************
+         *     INVOICES
+         *********************/
+        private IEnumerable<Invoice> getInvoices()
+        {
+            return _context.Invoices.ToList();
+        }
+
+        private void insertInvoice(Invoice invoice)
+        {
+            //TODO: Do some basic error checking.
+            _context.Invoices.Add(invoice);
+            _context.SaveChanges();
+        }
+
+        private void updateInvoice(Invoice invoice)
+        {
+
+        }
+
+        private void deleteInvoice(Invoice invoice)
+        {
+            //delete all Items linked to this invoice
+            //delete the invoice itself.
+        }
+
 
         private static List<Client> clients = new List<Client>
         {
@@ -44,14 +76,6 @@ namespace EzInvoice.Models
         {
             invoice.Id = Repository.invoices.Count();
             invoices.Add(invoice);
-
-            //Adding to db
-            var dbContext = new EZInvoiceDB();
-            //Setting the ID to begin at 1 and add based off the total number within the table
-            var count = getDbCount("Invoices", dbContext);
-            invoice.Id = count + 1;
-            dbContext.Invoices.Add(invoice);
-            dbContext.SaveChanges();
         }
 
         // Remove Invoice from List
@@ -64,12 +88,6 @@ namespace EzInvoice.Models
                     invoices.Remove(invoices[i]);
                 }
             }
-
-            //Removing from database
-            var dbContext = new EZInvoiceDB();
-            dbContext.Invoices.Remove(invoice);
-            dbContext.SaveChanges();
-
         }
 
         // Return the Client List
@@ -81,21 +99,6 @@ namespace EzInvoice.Models
         public static List<Client> getAllClients()
         {
             return clients;
-        }
-
-        public static void AddUser(User user)
-        {
-            user.Id = Repository.users.Count();
-            users.Add(user);
-
-            //Adding to db
-            var dbContext = new EZInvoiceDB();
-            //Setting the ID to begin at 1 and add based off the total number within the table
-            var count = getDbCount("Users", dbContext);
-            user.Id = count + 1;
-            dbContext.Users.Add(user);
-            dbContext.SaveChanges();
-
         }
 
         //return a list of users by email

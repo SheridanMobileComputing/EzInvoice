@@ -11,14 +11,21 @@ namespace EzInvoice.Controllers
     public class HomeController : Controller
     {
 
+        private EZInvoiceDB _context;
+
+        public HomeController(EZInvoiceDB context)
+        {
+            _context = context;
+        }
+
         private bool LoggedIn()
         {
             return !string.IsNullOrEmpty(HttpContext.Session.GetString("EmailAddress"));
         }
+
         //default route: "index" or "/"
         public IActionResult Index()
         {
-            //if we're not logged in...
             if(!LoggedIn())
             {
                 return Login();
@@ -60,7 +67,36 @@ namespace EzInvoice.Controllers
 
         public IActionResult Signup()
         {
-            return View();
+            return View(new SignupAttempt());
+        }
+
+        [HttpPost]
+        public IActionResult Signup(SignupAttempt signupAttempt)
+        {
+            signupAttempt.ErrorMessage = signupAttempt.getError();
+            if (signupAttempt.ErrorMessage == "")
+            {
+                if(_context.Users.Count() > 0)
+                {
+                    //Ensure this signup info hasn't already been saved to the DB.
+                    var user = _context.Users
+                    .FirstOrDefault(s => s.EmailAddress == signupAttempt.EmailAddress);
+                    if (user != null)
+                    {
+                        signupAttempt.ErrorMessage = "User with this email already exists.";
+                        return View(signupAttempt);
+                    }
+                }
+
+                //save to db
+                _context.Users.Add(new User(signupAttempt));
+                _context.SaveChangesAsync();
+                return Login();
+            }
+            else
+            {
+                return View(signupAttempt);
+            }
         }
 
         public IActionResult MyAccount()
@@ -73,7 +109,7 @@ namespace EzInvoice.Controllers
                     return View("AccountInfo", activeUser);
                 }
             }
-            return Login();
+            return Error403();
         }
 
         [Route("error/404")]
@@ -82,91 +118,131 @@ namespace EzInvoice.Controllers
             return View("Error", 404);
         }
 
+        [Route("error/403")]
+        public IActionResult Error403()
+        {
+            return View("Error", 403);
+        }
 
         public IActionResult Dashboard()
         {
-            return View("Dashboard");
+            if (LoggedIn()) {
+                return View("Dashboard");
+            }
+            return Error403();
         }
 
 
         public IActionResult InvoiceMain()
         {
-            return View("InvoiceMain", Repository.InvoiceList);
+            if (LoggedIn())
+            {
+                return View("InvoiceMain", Repository.InvoiceList);
+            }
+            return Error403();
         }
 
         [HttpGet]
         public IActionResult CreateInvoice()
         {
-            return View();
+            if (LoggedIn())
+            {
+                return View();
+            }
+            return Error403();
         }
 
         [HttpPost]
         public IActionResult CreateInvoice(Invoice invoice)
         {
-            if (ModelState.IsValid)
+            if (LoggedIn())
             {
+                if (ModelState.IsValid)
+                {
 
-                Repository.AddInvoice(invoice);
-                return View("InvoiceCreationConfirmation", invoice);
+                    Repository.AddInvoice(invoice);
+                    return View("InvoiceCreationConfirmation", invoice);
+                }
+                else
+                {
+                    // there is a validation error              
+                    return View();
+                }
             }
-            else
-            {
-                // there is a validation error              
-                return View();
-            }
+            return Error403();
         }
 
         public IActionResult DeleteInvoice(int id)
         {
-            var request = Repository.InvoiceList.SingleOrDefault(r => r.Id == id);
-
-            if (request == null)
+            if (LoggedIn())
             {
-                return View("Error");
+                var request = Repository.InvoiceList.SingleOrDefault(r => r.Id == id);
+
+                if (request == null)
+                {
+                    return View("Error");
+                }
+                return View("DeleteInvoice", request);
             }
-            return View("DeleteInvoice", request);
+            return Error403();
         }
 
         [HttpPost]
         public IActionResult DeleteInvoice(Invoice invoice)
         {
-            Repository.DeleteInvoice(invoice);
-            return View("InvoiceDeletionConfirmation");
+            if (LoggedIn())
+            {
+                Repository.DeleteInvoice(invoice);
+                return View("InvoiceDeletionConfirmation");
+            }
+            return Error403();
         }
 
 
         public IActionResult EditInvoice(int id)
         {
-            var request = Repository.InvoiceList.SingleOrDefault(r => r.Id == id);
-
-            if (request == null)
+            if (LoggedIn())
             {
-                return View("Error");
+                var request = Repository.InvoiceList.SingleOrDefault(r => r.Id == id);
+
+                if (request == null)
+                {
+                    return View("Error");
+                }
+                return View("EditInvoice", request);
             }
-            return View("EditInvoice", request);
+            return Error403();
         }
 
 
         public IActionResult InvoiceDetail(int id)
         {
-            var request = Repository.InvoiceList.SingleOrDefault(r => r.Id == id);
-
-            if (request == null)
+            if (LoggedIn())
             {
-                return View("Error");
+                var request = Repository.InvoiceList.SingleOrDefault(r => r.Id == id);
+
+                if (request == null)
+                {
+                    return View("Error");
+                }
+                return View("InvoiceDetail", request);
             }
-            return View("InvoiceDetail", request);
+            return Error403();
         }
 
         public IActionResult PayInvoice(int id)
         {
-            var request = Repository.InvoiceList.SingleOrDefault(r => r.Id == id);
-
-            if (request == null)
+            if (LoggedIn())
             {
-                return View("Error");
+                var request = Repository.InvoiceList.SingleOrDefault(r => r.Id == id);
+
+                if (request == null)
+                {
+                    return View("Error");
+                }
+                return View("PayInvoice", request);
             }
-            return View("PayInvoice", request);
+            return Error403();
         }
     }
 }

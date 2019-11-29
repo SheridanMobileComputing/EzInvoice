@@ -1,44 +1,68 @@
-﻿
+﻿@model EzInvoice.Models.SignupAttempt
+
 @{
-    Layout = "_AuthLayout";
+    Layout = "_OtherLayout";
 }
 
 <!DOCTYPE html>
-
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Signup</title>
 </head>
 <body>
-    <div class="bg-box">
-        <form method="post">
-            <fieldset class="form-box">
-                <legend>Sign Up</legend>
-                <div>
-                    <label for="FirstName">First Name:</label>
-                    <input class="form-control" type="text" name="firstName" value="" />
-                </div>
-                <div>
-                    <label for="LastName">Last Name:</label>
-                    <input class="form-control" type="text" name="lastName" value="" />
-                </div>
-                <div>
-                    <label for="EmailAddress">Email Address:</label>
-                    <input class="form-control" type="text" name="EmailAddress" value="" />
-                </div>
-                <div>
-                    <label for="inputPassword">Password:</label>
-                    <input class="form-control" type="password" name="inputPassword" value="" />
-                </div>
-
-            </fieldset>
-        </form>
-        <div class="text-center">
-            <button type="button" value="Submit" class="submit btn btn-success">Submit</button>
+    <article class="card-body mx-auto" style="max-width: 400px;">
+        @if (Model.ErrorMessage != null && Model.ErrorMessage != "")
+        {
+        <div class="card border-danger mb-3">
+            <div class="card-header border-danger text-danger">Error</div>
+            <div class="card-body text-danger">
+                <p class="card-text">@Model.ErrorMessage</p>
+            </div>
         </div>
+        }
+        <h4 class="card-title mt-3 text-center">Create Account</h4>
+        @using (Html.BeginForm("signup", "Home", FormMethod.Post))
+        {
+            <div class="form-group input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+                </div>
+                @Html.TextBoxFor(signupAttempt => signupAttempt.FirstName, new { @class = "form-control", placeholder = "First Name", value = Model.FirstName })
+            </div>
 
-    </div>
+            <div class="form-group input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+                </div>
+                @Html.TextBoxFor(signupAttempt => signupAttempt.LastName, new { @class = "form-control", placeholder = "Last Name", value = Model.LastName })
+            </div>
+
+            <div class="form-group input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
+                </div>
+                @Html.TextBoxFor(signupAttempt => signupAttempt.EmailAddress, new { @class = "form-control", placeholder = "Email Address", value = Model.EmailAddress })
+            </div>
+
+            <div class="form-group input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+                </div>
+                @Html.TextBoxFor(loginAttempt => loginAttempt.Password, new { @class = "form-control", type = "password", placeholder = "Password", value = Model.Password })
+            </div>
+            <div class="form-group input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+                </div>
+                @Html.TextBoxFor(loginAttempt => loginAttempt.RepeatPassword, new { @class = "form-control", type = "password", placeholder = "Repeat Password", value = Model.RepeatPassword })
+            </div>
+            <div class="text-center">
+                <input type="submit" value="Submit" class="submit btn btn-success" />
+            </div>
+        }
+
+    </article>
 
 </body>
 </html>
