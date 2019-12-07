@@ -32,7 +32,7 @@ namespace EzInvoice.Controllers
             }
             else
             {
-                return Dashboard();
+                return View("Dashboard");
             }
         }
 
@@ -132,117 +132,5 @@ namespace EzInvoice.Controllers
             return Error403();
         }
 
-
-        public IActionResult InvoiceMain()
-        {
-            if (LoggedIn())
-            {
-                return View("InvoiceMain", Repository.InvoiceList);
-            }
-            return Error403();
-        }
-
-        [HttpGet]
-        public IActionResult CreateInvoice()
-        {
-            if (LoggedIn())
-            {
-                return View();
-            }
-            return Error403();
-        }
-
-        [HttpPost]
-        public IActionResult CreateInvoice(Invoice invoice)
-        {
-            if (LoggedIn())
-            {
-                if (ModelState.IsValid)
-                {
-
-                    Repository.AddInvoice(invoice);
-                    return View("InvoiceCreationConfirmation", invoice);
-                }
-                else
-                {
-                    // there is a validation error              
-                    return View();
-                }
-            }
-            return Error403();
-        }
-
-        public IActionResult DeleteInvoice(int id)
-        {
-            if (LoggedIn())
-            {
-                var request = Repository.InvoiceList.SingleOrDefault(r => r.Id == id);
-
-                if (request == null)
-                {
-                    return View("Error");
-                }
-                return View("DeleteInvoice", request);
-            }
-            return Error403();
-        }
-
-        [HttpPost]
-        public IActionResult DeleteInvoice(Invoice invoice)
-        {
-            if (LoggedIn())
-            {
-                Repository.DeleteInvoice(invoice);
-                return View("InvoiceDeletionConfirmation");
-            }
-            return Error403();
-        }
-
-
-        public IActionResult EditInvoice(int id)
-        {
-            if (LoggedIn())
-            {
-                var request = Repository.InvoiceList.SingleOrDefault(r => r.Id == id);
-
-                if (request == null)
-                {
-                    return View("Error");
-                }
-                return View("EditInvoice", request);
-            }
-            return Error403();
-        }
-
-
-        public IActionResult InvoiceDetail(int id)
-        {
-            if (LoggedIn())
-            {
-                var request = Repository.InvoiceList.SingleOrDefault(r => r.Id == id);
-
-                if (request == null)
-                {
-                    return View("Error");
-                }
-                return View("InvoiceDetail", request);
-            }
-            return Error403();
-        }
-
-        public IActionResult PayInvoice(int id)
-        {
-            if (LoggedIn())
-            {
-                var request = Repository.InvoiceList.SingleOrDefault(r => r.Id == id);
-
-                if (request == null)
-                {
-                    return View("Error");
-                }
-                return View("PayInvoice", request);
-            }
-            return Error403();
-        }
     }
 }

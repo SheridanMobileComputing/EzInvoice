@@ -7,7 +7,7 @@ namespace EzInvoice.Models
 {
     public class Client
     {
-        public int Id { get; set; }
+        public int? Id { get; set; }
         public string Name { get; set; }
         public string Street { get; set; }
         public string City { get; set; }
@@ -15,6 +15,7 @@ namespace EzInvoice.Models
         public string Postal_code { get; set; }
         public string Country { get; set; }
         public string Email { get; set; }
+        public ICollection<Invoice> Invoices { get; set; }
 
         public int CalcBalance()
         {

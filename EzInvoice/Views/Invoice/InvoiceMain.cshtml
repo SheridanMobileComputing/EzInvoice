@@ -34,9 +34,9 @@
             else { 
                  <td>Paid</td>
             }
-            <td><a asp-action="EditInvoice" asp-route-id="@invoice.Id" class="btn btn-secondary">Edit Invoice</a></td>
-            <td><a asp-action="InvoiceDetail" asp-route-id="@invoice.Id" class="btn btn-info">View Invoice</a></td>
-            <td><a asp-action="DeleteInvoice" asp-route-id="@invoice.Id" class="btn btn-danger">Delete Invoice</a></td>
+            <td><a asp-action="EditInvoice" asp-controller="Invoice" asp-route-id="@invoice.Id" class="btn btn-secondary">Edit Invoice</a></td>
+            <td><a asp-action="InvoiceDetail" asp-controller="Invoice" asp-route-id="@invoice.Id" class="btn btn-info">View Invoice</a></td>
+            <td><a asp-action="DeleteInvoice" asp-controller="Invoice" asp-route-id="@invoice.Id" class="btn btn-danger">Delete Invoice</a></td>
         </tr>
     }
     </tbody>

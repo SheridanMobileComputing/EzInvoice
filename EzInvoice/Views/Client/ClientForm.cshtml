@@ -1,0 +1,58 @@
+﻿@model Client
+
+@{
+    Layout = "_OtherLayout";
+}
+
+<div class="container">
+    <h1 class="jumbotron text-center">Client Form</h1>
+</div>
+
+<div class="panel panel-success">
+    <div class="panel-body">
+        <form class="form-group" asp-action="SaveClient" asp-controller="Client">
+
+            <div asp-validation-summary="All"></div>
+
+            <div class="form-group">
+                <label asp-for="Name">Client Name: </label>
+                <input placeholder="Client Name" class="form-control" asp-for="Name" />
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Email">Client Email: </label>
+                <input placeholder="Client Email" class="form-control" asp-for="Email" />
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Street">Client Street: </label>
+                <input placeholder="123 Fake Street" class="form-control" asp-for="Street" />
+            </div>
+
+            <div class="form-group">
+                <label asp-for="City">Client City: </label>
+                <input placeholder="Oakville" class="form-control" asp-for="City" />
+            </div>
+            
+            <div class="form-group">
+                <label asp-for="Province">Client Province: </label>
+                <input placeholder="ON" class="form-control" asp-for="Province" />
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Postal_code">Client Postal Code: </label>
+                <input placeholder="L8L 5L5" class="form-control" asp-for="Postal_code" />
+            </div>
+            
+            <div class="form-group">
+                <label asp-for="Country">Client Country: </label>
+                <input placeholder="Canada" class="form-control" asp-for="Country" />
+            </div>
+
+            <div class="text-center">
+                <input class="button btn-primary" type="submit" name="submit" value="Save Client" />
+            </div>
+
+        </form>
+    </div>
+</div>

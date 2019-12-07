@@ -1,0 +1,39 @@
+﻿@model IEnumerable<Client>
+
+@{
+    Layout = "_MainLayout";
+}
+<div class="jumbotron text-center">
+    <h1>Main Client Page</h1>
+</div>
+
+<table class="table table-sm table-striped table-bordered text-center">                
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>City</th>
+        <th>Balance</th>
+        <th>Edit</th>
+        <th>Delete</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var client in Model) {
+        <tr>
+            <td>@client.Id</td>
+            <td>@client.Name</td>
+            <td>@client.Email</td>
+            <td>@client.City</td>
+            <td>client.CalcBalance()</td>
+            <td><a asp-action="EditClient" asp-controller="Client" asp-route-id="@client.Id" class="btn btn-secondary">Edit Client</a></td>
+            <td><a asp-action="DeleteClient" asp-controller="Client" asp-route-id="@client.Id" class="btn btn-danger">Delete Client</a></td>
+        </tr>
+    }
+    </tbody>
+</table>
+
+<div class="text-center">
+    <a asp-action="CreateClient" class="btn btn-primary">Create Client</a>
+</div>

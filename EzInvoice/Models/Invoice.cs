@@ -7,19 +7,19 @@ namespace EzInvoice.Models
 {
     public class Invoice
     {
-        public int Id { get; set; }
+        public int? Id { get; set; }
         public DateTime Date_of_issue { get; set; }
         public DateTime Due_date { get; set; }
         public bool Paid { get; set; }
         public float Tax_rate { get; set; }
         public Client Client { get; set; }
-        public List<InvoiceItem> Items { get; set; }
+        public ICollection<InvoiceItem> InvoiceItems { get; set; }
 
         public double Total()
         {
             double cost = 0.00;
 
-            foreach (var item in Items)
+            foreach (var item in InvoiceItems)
             {
                 cost += item.Total();
             }

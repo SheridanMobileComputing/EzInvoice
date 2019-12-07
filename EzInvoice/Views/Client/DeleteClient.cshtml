@@ -1,0 +1,23 @@
+﻿@model Client
+
+@{
+    Layout = "_OtherLayout";
+}
+
+<div class="container">
+    <h1 class="jumbotron text-center">Delete Client</h1>
+</div>
+
+<h3 class="text-center">Are you sure you want to delete client: @Model.Id @Model.Name ?</h3>
+
+<div class="panel panel-success">
+    <div class="panel-body">
+        <form class="p-a-1" asp-action="DeleteClient" method="post">
+            <div class="text-center">
+                <button class="btn btn-danger" type="submit">
+                    Delete Client
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
