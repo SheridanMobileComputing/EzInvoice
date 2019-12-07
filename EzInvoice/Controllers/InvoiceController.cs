@@ -20,7 +20,7 @@ namespace EzInvoice.Controllers
 
         public IActionResult Index()
         {
-            return View("InvoiceMain", _context.Invoices.ToList());
+            return View("InvoiceMain", _context.Invoices.Include(i => i.Client).ToList());
         }
 
 
@@ -62,9 +62,9 @@ namespace EzInvoice.Controllers
                     InvoiceInDb,
                     "",
                     i => i.Client,
-                    i => i.Date_of_issue,
-                    i => i.Due_date,
-                    i => i.Tax_rate,
+                    i => i.DateOfIssue,
+                    i => i.DueDate,
+                    i => i.TaxRate,
                     i => i.InvoiceItems
                 );
                 await _context.SaveChangesAsync();

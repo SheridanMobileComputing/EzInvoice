@@ -19,15 +19,19 @@ namespace EzInvoice
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
-            services.AddMvc(option => option.EnableEndpointRouting = false);
+            //services.AddMvc();
+            //services.AddMvc(option => option.EnableEndpointRouting = false);
 
             services.AddSession(sessionOptions =>
             {
                 sessionOptions.IdleTimeout = TimeSpan.FromSeconds(60);
             });
 
-            services.AddDbContext<EZInvoiceDB>(options => options.UseSqlite("Data Source=EZInvoice.db"));
+            services.AddControllersWithViews();
+            services.AddDbContext<EZInvoiceDB>(optionsAction: options => options.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=EZInvoice2.db")
+            );
+
+            //services.AddDbContext<EZInvoiceDB>(options => options.UseSqlite("Data Source=EZInvoice.db"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -39,11 +43,20 @@ namespace EzInvoice
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseStatusCodePagesWithReExecute("/error/{0}");
-
             app.UseSession();//this must be above app.UseMVC
-            app.UseMvcWithDefaultRoute();
+            //app.UseMvcWithDefaultRoute();
             app.UseStaticFiles();
+            app.UseRouting();
+
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllerRoute(
+                    name: "Default",
+                    pattern: "{controller=Home}/{action=Index}/{id?}"
+                );
+            });
+
+            app.UseStatusCodePagesWithReExecute("/error/{0}");
         }
     }
 }

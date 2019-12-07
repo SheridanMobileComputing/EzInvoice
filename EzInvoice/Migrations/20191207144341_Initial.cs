@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace EzInvoice.Migrations
 {
-    public partial class EZInvoicedb : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -12,7 +12,7 @@ namespace EzInvoice.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(nullable: true),
                     Street = table.Column<string>(nullable: true),
                     City = table.Column<string>(nullable: true),
@@ -31,7 +31,7 @@ namespace EzInvoice.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     FirstName = table.Column<string>(nullable: true),
                     LastName = table.Column<string>(nullable: true),
                     EmailAddress = table.Column<string>(nullable: true),
@@ -52,11 +52,11 @@ namespace EzInvoice.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Date_of_issue = table.Column<DateTime>(nullable: false),
-                    Due_date = table.Column<DateTime>(nullable: false),
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    DateOfIssue = table.Column<DateTime>(nullable: false),
+                    DueDate = table.Column<DateTime>(nullable: false),
                     Paid = table.Column<bool>(nullable: false),
-                    Tax_rate = table.Column<float>(nullable: false),
+                    TaxRate = table.Column<float>(nullable: false),
                     ClientId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
@@ -75,7 +75,7 @@ namespace EzInvoice.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     ItemNo = table.Column<string>(nullable: true),
                     ItemDescription = table.Column<string>(nullable: true),
                     Cost = table.Column<double>(nullable: false),

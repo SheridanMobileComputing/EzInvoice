@@ -8,10 +8,10 @@ namespace EzInvoice.Models
     public class Invoice
     {
         public int? Id { get; set; }
-        public DateTime Date_of_issue { get; set; }
-        public DateTime Due_date { get; set; }
+        public DateTime DateOfIssue { get; set; }
+        public DateTime DueDate { get; set; }
         public bool Paid { get; set; }
-        public float Tax_rate { get; set; }
+        public float TaxRate { get; set; }
         public Client Client { get; set; }
         public ICollection<InvoiceItem> InvoiceItems { get; set; }
 
