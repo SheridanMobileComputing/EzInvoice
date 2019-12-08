@@ -13,6 +13,7 @@
         <form class="form-group" asp-action="SaveClient" asp-controller="Client">
 
             <div asp-validation-summary="All"></div>
+            <input type="hidden" asp-for="Id" />
 
             <div class="form-group">
                 <label asp-for="Name">Client Name: </label>
@@ -33,7 +34,7 @@
                 <label asp-for="City">Client City: </label>
                 <input placeholder="Oakville" class="form-control" asp-for="City" />
             </div>
-            
+
             <div class="form-group">
                 <label asp-for="Province">Client Province: </label>
                 <input placeholder="ON" class="form-control" asp-for="Province" />
@@ -43,7 +44,7 @@
                 <label asp-for="Postal_code">Client Postal Code: </label>
                 <input placeholder="L8L 5L5" class="form-control" asp-for="Postal_code" />
             </div>
-            
+
             <div class="form-group">
                 <label asp-for="Country">Client Country: </label>
                 <input placeholder="Canada" class="form-control" asp-for="Country" />

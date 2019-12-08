@@ -78,6 +78,7 @@ namespace EzInvoice.Controllers
         {
             var client = await _context
                 .Clients.Include(i => i.Invoices)
+                .ThenInclude(i => i.InvoiceItems)
                 .FirstOrDefaultAsync(c => c.Id == id);
 
             if (client == null)
@@ -89,7 +90,12 @@ namespace EzInvoice.Controllers
             {
                 foreach (var invoice in client.Invoices)
                 {
-                    // DELETE THE INVOICE
+                    //:todo DELETE INVOICE ITEMS, THEN INVOICE
+                    //foreach (var item in client.Invoices.InvoiceItems)
+                    //{
+                    //    _context.InvoiceItems.Remove(item);
+                    //}
+                    _context.Invoices.Remove(invoice);
                 }
             }
 
