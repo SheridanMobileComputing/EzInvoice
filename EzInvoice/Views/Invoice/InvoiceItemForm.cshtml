@@ -1,0 +1,54 @@
+﻿@*@model InvoiceItem*@
+
+@{
+    Layout = "_OtherLayout";
+}
+
+<div class="container">
+    <h1 class="jumbotron text-center">Invoice Item Form</h1>
+</div>
+
+<div class="panel panel-success">
+    <div class="panel-body">
+        <form class="p-a-1" asp-action="SaveItem" method="post">
+            <div asp-validation-summary="All"></div>
+
+            <div class="form-group">
+                <label>Add to Invoice Number: </label>
+                <select name="InvoiceId">
+                    @foreach (var invoice in ViewBag.Invoices)
+                    {
+                        <option value="@invoice.Id">@invoice.Id</option>
+                    }
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Item Number: </label>
+                <input class="form-control" type="text" name="ItemNo" />
+            </div>
+
+            <div class="form-group">
+                <label>Item Description: </label>
+                <input class="form-control" type="text" name="ItemDescription" />
+            </div>
+
+            <div class="form-group">
+                <label>Item Cost: </label>
+                <input class="form-control" type="number" step="0.01" name="Cost" />
+            </div>
+
+            <div class="form-group">
+                <label>Item Quantity: </label>
+                <input class="form-control" type="number" step="0.01" name="Quantity" />
+            </div>
+
+            <div class="text-center">
+                <input class="button btn-danger" type="button" value="Cancel" onclick="location.href = '@Url.Action("Index","Invoice")';" />
+                <input class="button btn-info" type="reset" name="reset" value="Reset Form" />
+                <input class="button btn-success" type="submit" name="submit" value="Save Item" />
+            </div>
+
+        </form>
+    </div>
+</div>

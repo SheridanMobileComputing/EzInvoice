@@ -11,6 +11,7 @@ namespace EzInvoice.Controllers
     public class InvoiceController : Controller
     {
         private EZInvoiceDB _context;
+        
 
         public InvoiceController(EZInvoiceDB context)
         {
@@ -20,59 +21,82 @@ namespace EzInvoice.Controllers
 
         public IActionResult Index()
         {
-            return View("InvoiceMain", _context.Invoices.Include(i => i.Client).ToList());
+            return View("InvoiceMain", _context
+                .Invoices.Include(i => i.Client).ToList());
         }
 
 
         [HttpGet]
         public IActionResult CreateInvoice()
         {
+            ViewBag.Clients = _context
+                .Clients.ToList();
             return View("InvoiceForm");
         }
 
 
         public async Task<IActionResult> EditInvoice(int id)
         {
-            var invoice = await _context.Invoices.FindAsync(id);
+            var invoice = await _context
+                .Invoices.FindAsync(id);
 
             if (invoice == null)
             {
                 return NotFound();
             }
 
-            return View("InvoiceForm", invoice);
+            return View("InvoiceEditForm", invoice);
+        }
+
+
+
+        [HttpPost]
+        public async Task<IActionResult> SaveEditInvoice(Invoice invoice)
+        {
+            var InvoiceInDb = await _context
+                .Invoices.FindAsync(invoice.Id);
+            if (InvoiceInDb == null)
+            {
+                return NotFound();
+            }
+
+            await TryUpdateModelAsync<Invoice>(
+                InvoiceInDb,
+                "",
+                i => i.DateOfIssue,
+                i => i.DueDate,
+                i => i.Paid,
+                i => i.TaxRate
+            );
+            await _context.SaveChangesAsync();
+            return View("InvoiceItemForm");
         }
 
 
         [HttpPost]
-        public async Task<IActionResult> SaveInvoice(Invoice invoice)
+        public async Task<IActionResult> SaveInvoice(int clientId, DateTime dateOfIssue, DateTime dueDate, bool paid, float taxRate)
         {
-            if (ModelState.IsValid)
+            var client = await _context
+                .Clients.FindAsync(clientId);
+            if (client == null)
             {
-                if (invoice.Id == null)
-                {
-                    _context.Invoices.Add(invoice);
-                    await _context.SaveChangesAsync();
-                    return RedirectToAction("Index", "Invoice");
-                }
-
-                var InvoiceInDb = await _context.Invoices.FindAsync(invoice.Id);
-
-                await TryUpdateModelAsync<Invoice>(
-                    InvoiceInDb,
-                    "",
-                    i => i.Client,
-                    i => i.DateOfIssue,
-                    i => i.DueDate,
-                    i => i.TaxRate,
-                    i => i.InvoiceItems
-                );
-                await _context.SaveChangesAsync();
-                return RedirectToAction("Index", "Invoice");
+                return NotFound();
             }
-            return View("InvoiceForm");
-        }
 
+            Invoice invoice = new Invoice
+            {
+                Client = client,
+                DateOfIssue = dateOfIssue,
+                DueDate = dueDate,
+                Paid = paid,
+                TaxRate = taxRate
+            };
+
+            _context.Invoices.Add(invoice);
+            await _context.SaveChangesAsync();
+            
+            return View("InvoiceItemForm", ViewBag.InvoiceId);
+        }
 
         public async Task<IActionResult> DeleteInvoice(int id)
         {
@@ -87,9 +111,9 @@ namespace EzInvoice.Controllers
 
             if (invoice.InvoiceItems.Count > 0)
             {
-                foreach (var invoiceItems in invoice.InvoiceItems)
+                foreach (var item in invoice.InvoiceItems)
                 {
-                    // DELETE INVOICE ITEMS
+                    _context.InvoiceItems.Remove(item);
                 }
             }
 
@@ -101,7 +125,11 @@ namespace EzInvoice.Controllers
 
         public async Task<IActionResult> InvoiceDetail(int id)
         {
-            var invoice = await _context.Invoices.FindAsync(id);
+            var invoice = await _context
+                .Invoices.Include(c => c.Client)
+                .ThenInclude(i => i.Invoices)
+                .ThenInclude(i => i.InvoiceItems)
+                .FirstOrDefaultAsync(c => c.Id == id);
 
             if (invoice == null)
             {
@@ -114,13 +142,79 @@ namespace EzInvoice.Controllers
 
         public async Task<IActionResult> PayInvoice(int id)
         {
-            var invoice = await _context.Invoices.FindAsync(id);
+            var invoice = await _context
+                .Invoices.FindAsync(id);
 
             if (invoice == null)
             {
-                return View(NotFound());
+                return NotFound();
             }
+
+            invoice.Paid = true;
+            await _context.SaveChangesAsync();
             return View("PayInvoice", invoice);
+        }
+
+
+        [HttpGet]
+        public IActionResult CreateItem()
+        {
+            ViewBag.Invoices = _context.Invoices.ToList();
+            return View("InvoiceItemForm");
+        }
+
+
+        public async Task<IActionResult> EditItem(int id)
+        {
+            var invoiceItem = await _context
+                .InvoiceItems.FindAsync(id);
+            if (invoiceItem == null)
+            {
+                return NotFound();
+            }
+
+            return View("InvoiceItemForm", invoiceItem);
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> SaveItem(int InvoiceId, double Quantity, double Cost, string ItemNo, string ItemDescription )
+        {
+            var invoice = await _context
+                .Invoices.Include(i => i.InvoiceItems)
+                .FirstOrDefaultAsync(i => i.Id == InvoiceId);
+            if (invoice == null)
+            {
+                return NotFound();
+            }
+
+            InvoiceItem invoiceItem = new InvoiceItem
+            {
+                ItemNo = ItemNo,
+                ItemDescription = ItemDescription,
+                Quantity = Quantity,
+                Cost = Cost
+            };
+
+            invoice.InvoiceItems.Append(invoiceItem);
+            _context.InvoiceItems.Add(invoiceItem);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Index");
+        }
+
+        public async Task<IActionResult> DeleteItem(int id)
+        {
+            var invoiceItem = await _context
+                .InvoiceItems.FindAsync(id);
+
+            if (invoiceItem == null)
+            {
+                return NotFound();
+            }
+
+            _context.InvoiceItems.Remove(invoiceItem);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Index", "Invoice");
         }
 
     }

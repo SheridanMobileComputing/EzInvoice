@@ -9,13 +9,14 @@ https://bootsnipp.com/snippets/9gjD
     Layout = "_OtherLayout";
 }
 
-    <div class="container">
+<div class="container">
         <div class="row">
             <div class="col-xs-12">
                 <div class="invoice-title">
-                    <h2>EZInvoice</h2><h3 class="pull-right">Invoice # @Model.Id</h3>
+                    <h2>EZInvoice</h2><h3 class="align-content-lg-end">Invoice # @Model.Id</h3>
                 </div>
                 <hr>
+
                 <div class="row">
                     <div class="col-xs-6">
                         <address>
@@ -36,6 +37,7 @@ https://bootsnipp.com/snippets/9gjD
                         </address>
                     </div>
                 </div>
+
                 <div class="row">
                     <div class="col-xs-6">
                         <address>
@@ -69,6 +71,8 @@ https://bootsnipp.com/snippets/9gjD
                                         <td class="text-center"><strong>Cost</strong></td>
                                         <td class="text-center"><strong>Quantity</strong></td>
                                         <td class="text-center"><strong>Totals</strong></td>
+                                        <td class="text-center"><strong>Edit Item</strong></td>
+                                        <td class="text-center"><strong>Delete Item</strong></td>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -80,6 +84,8 @@ https://bootsnipp.com/snippets/9gjD
                                             <td>@item.Cost</td>
                                             <td>@item.Quantity</td>
                                             <td>$ @item.Total()</td>
+                                            <td><a asp-action="EditItem" asp-controller="Invoice" asp-route-id="@item.Id" class="btn btn-info">Edit Item</a></td>
+                                            <td><a asp-action="DeleteItem" asp-controller="Invoice" asp-route-id="@item.Id" class="btn btn-danger">Delete Item</a></td>
                                         </tr>
                                     }
 
@@ -114,7 +120,10 @@ https://bootsnipp.com/snippets/9gjD
     </div>
 
 
-    <div class="text-center">
-        <a asp-action="EditInvoice" asp-controller="Invoice" asp-route-id="@Model.Id" type="button" class="btn btn-info">Edit Invoice</a>
-        <a asp-action="PayInvoice" asp-controller="Invoice" asp-route-id="@Model.Id" type="button" class="btn btn-success">Pay Invoice</a>
-    </div>
+<div class="text-center">
+    <a asp-action="EditInvoice" asp-controller="Invoice" asp-route-id="@Model.Id" type="button" class="btn btn-info">Edit Invoice</a>
+    <a asp-action="PayInvoice" asp-controller="Invoice" asp-route-id="@Model.Id" type="button" class="btn btn-success">Pay Invoice</a>
+</div>
+<div class="text-center">
+    <a asp-action="CreateItem" asp-controller="Invoice" class="btn btn-primary">Add Item to Invoice</a>
+</div>
