@@ -40,6 +40,7 @@ namespace EzInvoice.Controllers
         {
             //an empty login attempt object will tell the View to render the Login page as
             //  if no attempt has yet been made.
+
             return View("Login", new LoginAttempt());
         }
 

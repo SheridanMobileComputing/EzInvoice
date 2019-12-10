@@ -77,8 +77,8 @@ namespace EzInvoice.Controllers
         public async Task<IActionResult> DeleteClient(int id)
         {
             var client = await _context
-                .Clients.Include(i => i.Invoices)
-                .ThenInclude(i => i.InvoiceItems)
+                .Clients.Include(cli => cli.Invoices)
+                .ThenInclude(inv => inv.InvoiceItems)
                 .FirstOrDefaultAsync(c => c.Id == id);
 
             if (client == null)
@@ -91,10 +91,10 @@ namespace EzInvoice.Controllers
                 foreach (var invoice in client.Invoices)
                 {
                     //:todo DELETE INVOICE ITEMS, THEN INVOICE
-                    //foreach (var item in client.Invoices.InvoiceItems)
-                    //{
-                    //    _context.InvoiceItems.Remove(item);
-                    //}
+                    foreach (var item in client.Invoices.InvoiceItems)
+                    {
+                        _context.InvoiceItems.Remove(item);
+                    }
                     _context.Invoices.Remove(invoice);
                 }
             }

@@ -16,8 +16,12 @@ namespace EzInvoice.Models
         }
         public bool wasSuccessful()
         {
+            
             User UserAccount = Repository.getUserByEmail(Email_address);
-            if(UserAccount == null)
+
+
+
+            if (UserAccount == null)
             {
                 return false;
             }
