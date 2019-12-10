@@ -11,14 +11,14 @@ https://bootsnipp.com/snippets/9gjD
 
 <div class="container">
         <div class="row">
-            <div class="col-xs-12">
+            <div class="col">
                 <div class="invoice-title">
-                    <h2>EZInvoice</h2><h3 class="align-content-lg-end">Invoice # @Model.Id</h3>
+                    <h3 class="align-content-lg-end">Invoice # @Model.Id</h3>
                 </div>
                 <hr>
 
                 <div class="row">
-                    <div class="col-xs-6">
+                    <div class="col-6">
                         <address>
                             <strong>Billed To:</strong><br>
                             @Model.Client.Name<br>
@@ -27,7 +27,7 @@ https://bootsnipp.com/snippets/9gjD
                             @Model.Client.Postal_code @Model.Client.Country
                         </address>
                     </div>
-                    <div class="col-xs-6 text-right">
+                    <div class="col-6 text-right">
                         <address>
                             <strong>Shipped To:</strong><br>
                             @Model.Client.Name<br>
@@ -39,13 +39,13 @@ https://bootsnipp.com/snippets/9gjD
                 </div>
 
                 <div class="row">
-                    <div class="col-xs-6">
+                    <div class="col-6">
                         <address>
                             <strong>Client Email:</strong><br>
                             @Model.Client.Email
                         </address>
                     </div>
-                    <div class="col-xs-6 text-right">
+                    <div class="col-6 text-right">
                         <address>
                             <strong>Order Date:</strong><br>
                             @Model.DateOfIssue<br><br>
@@ -56,7 +56,7 @@ https://bootsnipp.com/snippets/9gjD
         </div>
 
         <div class="row">
-            <div class="col-md-12">
+            <div class="col">
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h3 class="panel-title"><strong>Order summary</strong></h3>
@@ -88,26 +88,22 @@ https://bootsnipp.com/snippets/9gjD
                                             <td><a asp-action="DeleteItem" asp-controller="Invoice" asp-route-id="@item.Id" class="btn btn-danger">Delete Item</a></td>
                                         </tr>
                                     }
+                                    <tr>
+                                        <td colspan="7">
+                                            <a asp-action="CreateItem" asp-controller="Invoice" class="btn btn-primary float-right">Add Item to Invoice</a>
+                                        </td>
+                                    </tr>
 
                                     <tr class="text-center">
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td><strong>Subtotal</strong></td>
+                                        <td colspan="6" class="text-right"><strong>Subtotal</strong></td>
                                         <td>$@Model.Total()</td>
                                     </tr>
                                     <tr class="text-center">
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td><strong>Tax</strong></td>
+                                        <td colspan="6" class="text-right"><strong>Tax</strong></td>
                                         <td>$@Model.Tax()</td>
                                     </tr>
                                     <tr class="text-center">
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td><strong>Total</strong></td>
+                                        <td colspan="6" class="text-right"><strong>Total</strong></td>
                                         <td>$ @Math.Round(Model.Tax() + Model.Total(), 2)</td>
                                     </tr>
                                 </tbody>
@@ -125,5 +121,5 @@ https://bootsnipp.com/snippets/9gjD
     <a asp-action="PayInvoice" asp-controller="Invoice" asp-route-id="@Model.Id" type="button" class="btn btn-success">Pay Invoice</a>
 </div>
 <div class="text-center">
-    <a asp-action="CreateItem" asp-controller="Invoice" class="btn btn-primary">Add Item to Invoice</a>
+    
 </div>

@@ -14,7 +14,7 @@
         <th>Invoice No.</th>
         <th>Date Issued</th>
         <th>Date Due</th>
-        <th>Invoice Status</th>
+        <th>Paid?</th>
         <th>Edit Invoice</th>
         <th>View Invoice</th>
         <th>Delete Invoice</th>
@@ -25,14 +25,15 @@
         <tr>
             <td>@invoice.Client.Name</td>
             <td>@invoice.Id</td>
-            <td>@invoice.DateOfIssue</td>
-            <td>@invoice.DueDate</td>
+            <td>@invoice.DateOfIssue.ToShortDateString()</td>
+            <td>@invoice.DueDate.ToShortDateString()</td>
             @if (invoice.Paid == false)
             {
-                <td>Outstanding</td>
+                <td><a asp-action="PayInvoice" asp-controller="Invoice" asp-route-id="@invoice.Id" class="btn btn-secondary">Pay Now</a></td>
             }
-            else { 
-                 <td>Paid</td>
+            else
+            {
+                <td>Paid</td>
             }
             <td><a asp-action="EditInvoice" asp-controller="Invoice" asp-route-id="@invoice.Id" class="btn btn-secondary">Edit Invoice</a></td>
             <td><a asp-action="InvoiceDetail" asp-controller="Invoice" asp-route-id="@invoice.Id" class="btn btn-info">View Invoice</a></td>

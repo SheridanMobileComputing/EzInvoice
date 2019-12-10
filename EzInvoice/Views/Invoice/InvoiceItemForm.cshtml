@@ -12,16 +12,7 @@
     <div class="panel-body">
         <form class="p-a-1" asp-action="SaveItem" method="post">
             <div asp-validation-summary="All"></div>
-
-            <div class="form-group">
-                <label>Add to Invoice Number: </label>
-                <select name="InvoiceId">
-                    @foreach (var invoice in ViewBag.Invoices)
-                    {
-                        <option value="@invoice.Id">@invoice.Id</option>
-                    }
-                </select>
-            </div>
+            <input type="hidden" name="InvoiceId" value="@ViewBag.InvoiceId"/>
 
             <div class="form-group">
                 <label>Item Number: </label>

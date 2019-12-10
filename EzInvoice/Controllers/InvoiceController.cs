@@ -34,7 +34,6 @@ namespace EzInvoice.Controllers
             return View("InvoiceForm");
         }
 
-
         public async Task<IActionResult> EditInvoice(int id)
         {
             var invoice = await _context
@@ -48,13 +47,12 @@ namespace EzInvoice.Controllers
             return View("InvoiceEditForm", invoice);
         }
 
-
-
         [HttpPost]
-        public async Task<IActionResult> SaveEditInvoice(Invoice invoice)
+        public async Task<IActionResult> SaveEditInvoice(int InvoiceId, int clientId, DateTime dateOfIssue, DateTime dueDate, bool paid, float taxRate)
         {
             var InvoiceInDb = await _context
-                .Invoices.FindAsync(invoice.Id);
+                .Invoices.FindAsync(InvoiceId);
+
             if (InvoiceInDb == null)
             {
                 return NotFound();
@@ -69,6 +67,9 @@ namespace EzInvoice.Controllers
                 i => i.TaxRate
             );
             await _context.SaveChangesAsync();
+
+            ViewBag.InvoiceId = InvoiceInDb.Id;
+
             return View("InvoiceItemForm");
         }
 
@@ -78,6 +79,7 @@ namespace EzInvoice.Controllers
         {
             var client = await _context
                 .Clients.FindAsync(clientId);
+            
             if (client == null)
             {
                 return NotFound();
@@ -93,15 +95,17 @@ namespace EzInvoice.Controllers
             };
 
             _context.Invoices.Add(invoice);
-            await _context.SaveChangesAsync();
+            _context.SaveChanges(); //do this synchronously so we can get the id in the next line...
+
+            ViewBag.InvoiceId = invoice.Id;
             
-            return View("InvoiceItemForm", ViewBag.InvoiceId);
+            return View("InvoiceItemForm");
         }
 
         public async Task<IActionResult> DeleteInvoice(int id)
         {
-            var invoice = await _context
-                .Invoices.Include(i => i.InvoiceItems)
+            var invoice = await _context.Invoices
+                .Include(i => i.InvoiceItems)
                 .FirstOrDefaultAsync(i => i.Id == id);
 
             if (invoice == null)
@@ -109,12 +113,9 @@ namespace EzInvoice.Controllers
                 return NotFound();
             }
 
-            if (invoice.InvoiceItems.Count > 0)
+            foreach (var item in invoice.InvoiceItems)
             {
-                foreach (var item in invoice.InvoiceItems)
-                {
-                    _context.InvoiceItems.Remove(item);
-                }
+                _context.InvoiceItems.Remove(item);
             }
 
             _context.Invoices.Remove(invoice);
@@ -183,6 +184,7 @@ namespace EzInvoice.Controllers
             var invoice = await _context
                 .Invoices.Include(i => i.InvoiceItems)
                 .FirstOrDefaultAsync(i => i.Id == InvoiceId);
+
             if (invoice == null)
             {
                 return NotFound();
@@ -193,7 +195,8 @@ namespace EzInvoice.Controllers
                 ItemNo = ItemNo,
                 ItemDescription = ItemDescription,
                 Quantity = Quantity,
-                Cost = Cost
+                Cost = Cost,
+                Invoice = invoice
             };
 
             invoice.InvoiceItems.Append(invoiceItem);

@@ -21,7 +21,8 @@ namespace EzInvoice.Controllers
 
         public IActionResult Index()
         {
-            return View("FinancialMain");
+            FinancialStatistics financialStats = new FinancialStatistics(_context);
+            return View("FinancialMain", financialStats);
         }
 
 

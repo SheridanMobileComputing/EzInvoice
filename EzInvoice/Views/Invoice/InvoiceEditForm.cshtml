@@ -13,6 +13,8 @@
         <form class="p-a-1" asp-action="SaveEditInvoice" method="post">
             <div asp-validation-summary="All"></div>
 
+            <input type="hidden" name="InvoiceId" value="@Model.Id" />
+
             <div class="form-group">
                 <label>Date of Issue:</label>
                 <input class="form-control" type="date" asp-for="DateOfIssue" />
