@@ -1,4 +1,4 @@
-﻿@model EzInvoice.Models.LoginAttempt
+﻿@model EzInvoice.Models.UserLogin
 
 @{
     Layout = "_LoginLayout";
@@ -15,22 +15,37 @@
     <div class="border border-dark main-header">
         <h1 class="text-center font-weight-bold"> Welcome to EzInvoice </h1>
     </div>
-  
-     
+
+
     <h2 class="font-weight-bold login">Login</h2>
-    @if (!Model.emptyAttempt())
-    {
-        <h3 class="text-danger">INFORMATION INCORRECT. TRY AGAIN.</h3>
-    }
 
-    @using (Html.BeginForm("login", "Home", FormMethod.Post))
-    {
-        @Html.TextBoxFor(loginAttempt => loginAttempt.Email_address, new { placeholder = "email", value = Model.Email_address });
-        @Html.TextBoxFor(loginAttempt => loginAttempt.Password, new { placeholder = "password", value = Model.Password });
+    <form asp-action="Login" method="post">
+
+        <div>
+            <label asp-for="EmailAddress"></label>
+            <input asp-for="EmailAddress" />
+        </div>
+        <div>
+            <label asp-for="Password"></label>
+            <input asp-for="Password" />
+        </div>
         <input type="submit" value="Login" />
-    }
+    </form>
+    @*
+        @if (!Model.emptyAttempt())
+        {
+            <h3 class="text-danger">INFORMATION INCORRECT. TRY AGAIN.</h3>
+        }
+    *@
+    @*
+        @using (Html.BeginForm("login", "Home", FormMethod.Post))
+        {
+            @Html.TextBoxFor(loginAttempt => loginAttempt.Email_address, new { placeholder = "email", value = Model.Email_address });
+            @Html.TextBoxFor(loginAttempt => loginAttempt.Password, new { placeholder = "password", value = Model.Password });
+            <input type="submit" value="Login" />
+        }*@
 
-    <div> 
+    <div>
         <a asp-action="SignUp" class="btn btn-success signUp">Don't Have an Account? SignUp</a>
     </div>
 </body>

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 
 namespace EzInvoice.Controllers
 {
@@ -40,10 +41,27 @@ namespace EzInvoice.Controllers
         {
             //an empty login attempt object will tell the View to render the Login page as
             //  if no attempt has yet been made.
-            return View("Login", new LoginAttempt());
+            // return View("Login", new LoginAttempt());
+            return View("Login");
         }
 
         [HttpPost]
+        public async Task<IActionResult> Login(UserLogin login)
+        {
+            var user = await _context
+                .Users
+                .FirstOrDefaultAsync(s => s.EmailAddress == login.EmailAddress);
+
+            if (user == null)
+            {
+                return View("Login");
+            }
+
+            HttpContext.Session.SetString("EmailAddress", user.EmailAddress);
+            return Dashboard();
+        }
+
+/*        [HttpPost]
         public IActionResult Login(LoginAttempt attempt)
         {
             if(attempt.wasSuccessful())
@@ -53,7 +71,7 @@ namespace EzInvoice.Controllers
             }
 
             return View("Login", attempt);
-        }
+        }*/
 
         public IActionResult Logout()
         {
