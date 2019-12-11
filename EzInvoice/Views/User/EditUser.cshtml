@@ -1,16 +1,47 @@
-﻿
+﻿@
 @{
     Layout = null;
 }
 
 <!DOCTYPE html>
-
+@model User
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>EditUser</title>
 </head>
 <body>
-    
+    <div class="panel panel-success">
+        <div class="panel-body">
+            <form class="form-group" asp-action="Update" asp-controller="User">
+
+                <div asp-validation-summary="All"></div>
+                <input type="hidden" asp-for="Id" />
+
+                <div class="form-group">
+                    <label asp-for="FirstName">First Name: </label>
+                    <input placeholder="first name" class="form-control" asp-for="FirstName" />
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="LastName">Last Name: </label>
+                    <input placeholder="Last Name" class="form-control" asp-for="LastName" />
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="EmailAddress">Email address: </label>
+                    <input placeholder="123 Fake Street" class="form-control" asp-for="EmailAddress" />
+                </div>
+
+
+                <div class="text-center">
+                    <input class="button btn-primary" type="submit" name="submit" value="Update Information" />
+                </div>
+                
+
+            </form>
+        </div>
+    </div>
+
 </body>
 </html>
