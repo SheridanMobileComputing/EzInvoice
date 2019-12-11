@@ -19,12 +19,18 @@ namespace EzInvoice.Controllers
         }
 
 
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            return View("UserMain");
+            var user = new User("bob", "gong", "bob@hotmail.com", "123456");
+            return View("AccountInfo", user);
         }
 
+        public IActionResult Edit()
+        {
+           
 
+            return View("EditUser");
+        }
 
     }
 }

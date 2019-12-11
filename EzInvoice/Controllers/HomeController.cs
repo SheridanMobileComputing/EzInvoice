@@ -110,14 +110,17 @@ namespace EzInvoice.Controllers
                     return View("AccountInfo", activeUser);
                 }
             }
-            return Error403();
+            var user = new User("bob", "gong", "bob@hotmail.com", "123456");
+            // return Error403(); 
+            return View("AccountInfo", user);
         }
+
 
         [Route("error/404")]
         public IActionResult Error404()
         {
             return View("Error", 404);
-        }
+        } 
 
         [Route("error/403")]
         public IActionResult Error403()
