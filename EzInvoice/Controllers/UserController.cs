@@ -22,14 +22,17 @@ namespace EzInvoice.Controllers
 
         public IActionResult Index()
         {
+
+            //Fake Data for testing 
             var user = new User("bob", "gong", "bob@hotmail.com", "123456");
             return View("AccountInfo", user);
         }
 
-        public IActionResult EditUser()
+        public IActionResult Edit()
         {
+            // takes a parameter of user and populates the user form with the model attributres 
         
-            return View();
+            return View("EditUser");
         }
 
 
@@ -46,7 +49,6 @@ namespace EzInvoice.Controllers
                 );
 
             await _context.SaveChangesAsync();
-
             return RedirectToAction("UserMain", "User");
         }
     }

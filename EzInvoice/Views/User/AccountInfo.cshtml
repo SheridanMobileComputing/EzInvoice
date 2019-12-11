@@ -3,16 +3,17 @@
     Layout = "_MainLayout";
 }
 
-@*<p>First Name: @Model.FirstName</p>
-<p>Last Name: @Model.LastName</p>
-<p>Email Address: @Model.EmailAddress</p>*@ 
-
 
 @* it needs to pass the user that is logged in and grab their info - login user controller stuff *@
+<html>
 
-<h1>Welcome @Model.FirstName</h1>
+<head>
+    <link rel="stylesheet" href="~/css/AccountInfoStyleSheet.css" />
+</head>
+<body>
+<h1 class="text-center">Welcome @Model.FirstName !</h1>
 
-<div>
+<div class="box">
     <h3>User Information</h3>
     <p>First Name: @Model.FirstName</p>
     <p>Last Name: @Model.LastName</p>
@@ -20,6 +21,8 @@
 
 
     <div>
-        <a  asp-controller="User" asp-action="Edit" class="btn btn-success">Edit Account</a>
+        <a asp-action="Edit" class="btn btn-success">Edit Account</a>
     </div>
 </div>
+</body>
+</html>

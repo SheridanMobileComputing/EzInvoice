@@ -1,18 +1,20 @@
-﻿@
+﻿@model EzInvoice.Models.User
 @{
-    Layout = null;
+    Layout = "_MainLayout";
 }
 
 <!DOCTYPE html>
-@model User
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>EditUser</title>
+    <link rel="stylesheet" href="~/css/EditUserStyleSheet.css" />
+    <title>Edit Account information</title>
 </head>
 <body>
-    <div class="panel panel-success">
+    <h4 class="text-center">Update Personal Information</h4>
+    <div class="form panel panel-success">
         <div class="panel-body">
+
             <form class="form-group" asp-action="Update" asp-controller="User">
 
                 <div asp-validation-summary="All"></div>
@@ -30,12 +32,12 @@
 
                 <div class="form-group">
                     <label asp-for="EmailAddress">Email address: </label>
-                    <input placeholder="123 Fake Street" class="form-control" asp-for="EmailAddress" />
+                    <input placeholder="123 " class="form-control" asp-for="EmailAddress" />
                 </div>
 
 
                 <div class="text-center">
-                    <input class="button btn-primary" type="submit" name="submit" value="Update Information" />
+                    <input class="btn btn-success" type="submit" name="submit" value="Update Information" />
                 </div>
                 
 

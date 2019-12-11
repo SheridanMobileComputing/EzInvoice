@@ -9,6 +9,7 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
+
     <title class="title">Login</title>
 </head>
 <body>
@@ -17,12 +18,13 @@
     </div>
   
      
-    <h2 class="font-weight-bold login">Login</h2>
+    <h2 class="font-weight-bold login text-center">Login</h2>
     @if (!Model.emptyAttempt())
     {
         <h3 class="text-danger">INFORMATION INCORRECT. TRY AGAIN.</h3>
     }
 
+<div class="form-box">
     @using (Html.BeginForm("login", "Home", FormMethod.Post))
     {
         @Html.TextBoxFor(loginAttempt => loginAttempt.Email_address, new { placeholder = "email", value = Model.Email_address });
@@ -30,7 +32,8 @@
         <input type="submit" value="Login" />
     }
 
-    <div> 
+</div>
+    <div class="text-center"> 
         <a asp-action="SignUp" class="btn btn-success signUp">Don't Have an Account? SignUp</a>
     </div>
 </body>
