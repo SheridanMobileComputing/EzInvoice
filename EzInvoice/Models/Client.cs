@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -17,13 +18,24 @@ namespace EzInvoice.Models
         public string Email { get; set; }
         public ICollection<Invoice> Invoices { get; set; }
 
-        public int CalcBalance()
+        public double CalcBalance(EZInvoiceDB context)
         {
 
             /* Iterate through all invoices with this client
              * and return total value (positive or negative)
              * of this client's invoices*/
-            return 0;
+
+            var invoices = context.Invoices
+                .Include(i => i.Client)
+                .Include(i => i.InvoiceItems)
+                .Where(i => i.Client.Id == this.Id).ToList();
+
+            double total = 0;
+            foreach (var invoice in invoices)
+            {
+                total += invoice.Total();
+            }
+            return total;
         }
 
         public bool GoodStanding()

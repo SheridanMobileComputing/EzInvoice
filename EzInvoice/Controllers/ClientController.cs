@@ -21,6 +21,7 @@ namespace EzInvoice.Controllers
 
         public IActionResult Index()
         {
+            ViewBag.context = _context;
             return View("ClientMain", _context.Clients.ToList());
         }
 
