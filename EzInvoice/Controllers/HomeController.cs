@@ -56,10 +56,12 @@ namespace EzInvoice.Controllers
 
                 if (user == null)
                 {
+                    ModelState.AddModelError("EmailAddress", "No account with this email exists.");
                     return View("Login");
                 }
                 if(login.Password != user.Password)
                 {
+                    ModelState.AddModelError("Password", "Password incorrect. Try again.");
                     return View("Login");
                 }
 

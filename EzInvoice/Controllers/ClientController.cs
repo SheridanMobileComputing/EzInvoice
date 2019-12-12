@@ -34,12 +34,18 @@ namespace EzInvoice.Controllers
 
         public async Task<IActionResult> EditClient(int id)
         {
-            var client = await _context.Clients.FindAsync(id);
-            if (client == null)
+            if (ModelState.IsValid)
             {
-                return NotFound();
+                var client = await _context.Clients.FindAsync(id);
+                if (client == null)
+                {
+                    return NotFound();
+                }
+
+                return View("ClientForm", client);
             }
-            return View("ClientForm", client);
+            ViewBag.context = _context;
+            return View("ClientMain", _context.Clients.ToList());
         }
 
 

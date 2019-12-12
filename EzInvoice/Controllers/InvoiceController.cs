@@ -43,7 +43,6 @@ namespace EzInvoice.Controllers
             {
                 return NotFound();
             }
-
             return View("InvoiceEditForm", invoice);
         }
 
@@ -83,6 +82,34 @@ namespace EzInvoice.Controllers
             if (client == null)
             {
                 return NotFound();
+            }
+
+            var valid = true;
+
+            if (dateOfIssue > new DateTime(2100, 01, 01) || dateOfIssue < new DateTime(1900, 01, 01))
+            {
+                ModelState.AddModelError("dateOfIssue", "Date out of range.");
+                valid = false;
+            }
+
+            if (dueDate > new DateTime(2100, 01, 01) || dueDate < new DateTime(1900, 01, 01))
+            {
+                ModelState.AddModelError("dueDate", "Date out of range.");
+                valid = false;
+            }
+
+            if(dueDate < dateOfIssue)
+            {
+                ModelState.AddModelError("dueDate", "Due date cannot be BEFORE date of issue.");
+                valid = false;
+            }
+
+
+
+            if (!valid)
+            {
+                ViewBag.Clients = _context.Clients.ToList();
+                return View("InvoiceForm");
             }
 
             Invoice invoice = new Invoice
