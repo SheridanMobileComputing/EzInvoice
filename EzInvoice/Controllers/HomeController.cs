@@ -48,17 +48,23 @@ namespace EzInvoice.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(UserLogin login)
         {
-            var user = await _context
-                .Users
-                .FirstOrDefaultAsync(s => s.EmailAddress == login.EmailAddress);
-
-            if (user == null)
+            if (ModelState.IsValid)
             {
-                return View("Login");
+                var user = await _context
+                    .Users
+                    .FirstOrDefaultAsync(s => s.EmailAddress == login.EmailAddress);
+
+                if (user == null)
+                {
+                    return View("Login");
+                }
+
+                HttpContext.Session.SetString("EmailAddress", user.EmailAddress);
+                return Dashboard();
             }
 
-            HttpContext.Session.SetString("EmailAddress", user.EmailAddress);
-            return Dashboard();
+            return View(login);
+
         }
 
 /*        [HttpPost]
