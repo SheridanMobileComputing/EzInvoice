@@ -27,11 +27,11 @@ namespace EzInvoice.Controllers
 
             var user = _context.Users
                 .FirstOrDefault(s => s.EmailAddress == email);
-            /* if (user == null)
+
+             if (user == null)
              {
-                 return RedirectToAction("Home", "Error403", 403);
+                 return RedirectToAction("Home", "Index");
              }
-             return View("AccountInfo", user);*/
 
             return View("AccountInfo", user);
         }

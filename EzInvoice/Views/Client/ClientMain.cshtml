@@ -26,7 +26,7 @@
             <td>@client.Name</td>
             <td>@client.Email</td>
             <td>@client.City</td>
-            <td>client.CalcBalance()</td>
+            <td>$@client.CalcBalance(ViewBag.context)</td>
             <td><a asp-action="EditClient" asp-controller="Client" asp-route-id="@client.Id" class="btn btn-secondary">Edit Client</a></td>
             <td><a asp-action="DeleteClient" asp-controller="Client" asp-route-id="@client.Id" class="btn btn-danger">Delete Client</a></td>
         </tr>
