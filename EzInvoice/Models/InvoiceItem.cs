@@ -12,6 +12,7 @@ namespace EzInvoice.Models
         public string ItemDescription { get; set; }
         public double Cost { get; set; }
         public double Quantity { get; set; }
+        public Invoice Invoice { get; set; }
 
         public double Total()
         {

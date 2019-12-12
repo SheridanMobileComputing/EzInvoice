@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 
 namespace EzInvoice.Controllers
 {
@@ -40,11 +41,33 @@ namespace EzInvoice.Controllers
         {
             //an empty login attempt object will tell the View to render the Login page as
             //  if no attempt has yet been made.
-
-            return View("Login", new LoginAttempt());
+            // return View("Login", new LoginAttempt());
+            return View("Login");
         }
 
         [HttpPost]
+        public async Task<IActionResult> Login(UserLogin login)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await _context
+                    .Users
+                    .FirstOrDefaultAsync(s => s.EmailAddress == login.EmailAddress);
+
+                if (user == null)
+                {
+                    return View("Login");
+                }
+
+                HttpContext.Session.SetString("EmailAddress", user.EmailAddress);
+                return Dashboard();
+            }
+
+            return View(login);
+
+        }
+
+/*        [HttpPost]
         public IActionResult Login(LoginAttempt attempt)
         {
             if(attempt.wasSuccessful())
@@ -54,7 +77,7 @@ namespace EzInvoice.Controllers
             }
 
             return View("Login", attempt);
-        }
+        }*/
 
         public IActionResult Logout()
         {
@@ -110,17 +133,14 @@ namespace EzInvoice.Controllers
                     return View("AccountInfo", activeUser);
                 }
             }
-            var user = new User("bob", "gong", "bob@hotmail.com", "123456");
-            // return Error403(); 
-            return View("AccountInfo", user);
+            return Error403();
         }
-
 
         [Route("error/404")]
         public IActionResult Error404()
         {
             return View("Error", 404);
-        } 
+        }
 
         [Route("error/403")]
         public IActionResult Error403()
