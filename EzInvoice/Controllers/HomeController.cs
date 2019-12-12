@@ -58,6 +58,10 @@ namespace EzInvoice.Controllers
                 {
                     return View("Login");
                 }
+                if(login.Password != user.Password)
+                {
+                    return View("Login");
+                }
 
                 HttpContext.Session.SetString("EmailAddress", user.EmailAddress);
                 return Dashboard();

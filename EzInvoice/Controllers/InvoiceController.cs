@@ -218,6 +218,35 @@ namespace EzInvoice.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction("InvoiceDetail", new { id = InvoiceId });
         }
+        /*
+        public async Task<IActionResult> SaveEditItem(int InvoiceId, double Quantity, double Cost, string ItemNo, string ItemDescription)
+        {
+            var InvoiceInDb = await _context.Invoices
+                .Include(i => i.InvoiceItems)
+                .Where(i => i.Id == InvoiceId)
+                .FirstOrDefaultAsync();
+
+
+
+            if (InvoiceInDb == null)
+            {
+                return NotFound();
+            }
+
+            await TryUpdateModelAsync<Invoice>(
+                InvoiceInDb,
+                "",
+                i => i.Quantity,
+                i => i.DueDate,
+                i => i.Paid,
+                i => i.TaxRate
+            );
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction("Index");
+            //ViewBag.InvoiceId = InvoiceInDb.Id;
+            //return RedirectToAction("InvoiceDetail", new { id = InvoiceInDb.Id });
+        }*/
 
         public IActionResult DeleteItem(int id)
         {
