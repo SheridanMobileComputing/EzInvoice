@@ -11,58 +11,90 @@
     <title>Signup</title>
 </head>
 <body>
-    <article class="card-body mx-auto" style="max-width: 400px;">
-        @if (Model.ErrorMessage != null && Model.ErrorMessage != "")
-        {
-        <div class="card border-danger mb-3">
-            <div class="card-header border-danger text-danger">Error</div>
-            <div class="card-body text-danger">
-                <p class="card-text">@Model.ErrorMessage</p>
-            </div>
+
+    <h4>@ViewBag.ErrorMsg</h4>
+
+    @using (Html.BeginForm("signup", "Home", FormMethod.Post))
+    {
+        @Html.ValidationSummary(true)
+    <fieldset>
+        <div>
+            @Html.EditorFor(model => model.FirstName)
+            @Html.ValidationMessageFor(model => model.FirstName)
         </div>
-        }
-        <h4 class="card-title mt-3 text-center">Create Account</h4>
-        @using (Html.BeginForm("signup", "Home", FormMethod.Post))
-        {
-            <div class="form-group input-group">
-                <div class="input-group-prepend">
-                    <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+        <div>
+            @Html.EditorFor(model => model.LastName)
+            @Html.ValidationMessageFor(model => model.LastName)
+        </div>
+        <div>
+            @Html.EditorFor(model => model.EmailAddress)
+            @Html.ValidationMessageFor(model => model.EmailAddress)
+        </div>
+        <div>
+            @Html.EditorFor(model => model.Password)
+            @Html.ValidationMessageFor(model => model.Password)
+        </div>
+        <div>
+            @Html.EditorFor(model => model.RepeatPassword)
+            @Html.ValidationMessageFor(model => model.RepeatPassword)
+        </div>
+        <p>
+            <input type="submit" value="SignUp" />
+        </p>
+    </fieldset>
+    }
+    @* <article class="card-body mx-auto" style="max-width: 400px;">
+            @if (Model.ErrorMessage != null && Model.ErrorMessage != "")
+            {
+            <div class="card border-danger mb-3">
+                <div class="card-header border-danger text-danger">Error</div>
+                <div class="card-body text-danger">
+                    <p class="card-text">@Model.ErrorMessage</p>
                 </div>
-                @Html.TextBoxFor(signupAttempt => signupAttempt.FirstName, new { @class = "form-control", placeholder = "First Name", value = Model.FirstName })
             </div>
+            }
+            <h4 class="card-title mt-3 text-center">Create Account</h4>
+            @using (Html.BeginForm("signup", "Home", FormMethod.Post))
+            {
+                <div class="form-group input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+                    </div>
+                    @Html.TextBoxFor(signupAttempt => signupAttempt.FirstName, new { @class = "form-control", placeholder = "First Name", value = Model.FirstName })
+                </div>
 
-            <div class="form-group input-group">
-                <div class="input-group-prepend">
-                    <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+                <div class="form-group input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+                    </div>
+                    @Html.TextBoxFor(signupAttempt => signupAttempt.LastName, new { @class = "form-control", placeholder = "Last Name", value = Model.LastName })
                 </div>
-                @Html.TextBoxFor(signupAttempt => signupAttempt.LastName, new { @class = "form-control", placeholder = "Last Name", value = Model.LastName })
-            </div>
 
-            <div class="form-group input-group">
-                <div class="input-group-prepend">
-                    <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
+                <div class="form-group input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
+                    </div>
+                    @Html.TextBoxFor(signupAttempt => signupAttempt.EmailAddress, new { @class = "form-control", placeholder = "Email Address", value = Model.EmailAddress })
                 </div>
-                @Html.TextBoxFor(signupAttempt => signupAttempt.EmailAddress, new { @class = "form-control", placeholder = "Email Address", value = Model.EmailAddress })
-            </div>
 
-            <div class="form-group input-group">
-                <div class="input-group-prepend">
-                    <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+                <div class="form-group input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+                    </div>
+                    @Html.TextBoxFor(loginAttempt => loginAttempt.Password, new { @class = "form-control", type = "password", placeholder = "Password", value = Model.Password })
                 </div>
-                @Html.TextBoxFor(loginAttempt => loginAttempt.Password, new { @class = "form-control", type = "password", placeholder = "Password", value = Model.Password })
-            </div>
-            <div class="form-group input-group">
-                <div class="input-group-prepend">
-                    <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+                <div class="form-group input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+                    </div>
+                    @Html.TextBoxFor(loginAttempt => loginAttempt.RepeatPassword, new { @class = "form-control", type = "password", placeholder = "Repeat Password", value = Model.RepeatPassword })
                 </div>
-                @Html.TextBoxFor(loginAttempt => loginAttempt.RepeatPassword, new { @class = "form-control", type = "password", placeholder = "Repeat Password", value = Model.RepeatPassword })
-            </div>
-            <div class="text-center">
-                <input type="submit" value="Submit" class="submit btn btn-success" />
-            </div>
-        }
+                <div class="text-center">
+                    <input type="submit" value="Submit" class="submit btn btn-success" />
+                </div>
+            }
 
-    </article>
+        </article>*@
 
 </body>
 </html>

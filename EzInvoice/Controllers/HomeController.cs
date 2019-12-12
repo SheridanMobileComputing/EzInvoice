@@ -46,7 +46,7 @@ namespace EzInvoice.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Login(UserLogin login)
+        public async Task<IActionResult> Login(User login)
         {
             if (ModelState.IsValid)
             {
@@ -67,18 +67,6 @@ namespace EzInvoice.Controllers
 
         }
 
-/*        [HttpPost]
-        public IActionResult Login(LoginAttempt attempt)
-        {
-            if(attempt.wasSuccessful())
-            {
-                HttpContext.Session.SetString("EmailAddress", attempt.Email_address);
-                return Dashboard();
-            }
-
-            return View("Login", attempt);
-        }*/
-
         public IActionResult Logout()
         {
             if (LoggedIn())
@@ -91,38 +79,42 @@ namespace EzInvoice.Controllers
 
         public IActionResult Signup()
         {
-            return View(new SignupAttempt());
+            return View();
         }
 
         [HttpPost]
-        public IActionResult Signup(SignupAttempt signupAttempt)
+        public async Task<IActionResult> Signup(SignupAttempt signupattempt)
         {
-            signupAttempt.ErrorMessage = signupAttempt.getError();
-            if (signupAttempt.ErrorMessage == "")
+            ViewBag.ErrorMsg = "";
+            if (ModelState.IsValid)
             {
-                if(_context.Users.Count() > 0)
+
+                if (_context.Users.Count() > 0)
                 {
                     //Ensure this signup info hasn't already been saved to the DB.
                     var user = _context.Users
-                    .FirstOrDefault(s => s.EmailAddress == signupAttempt.EmailAddress);
+                    .FirstOrDefault(s => s.EmailAddress == signupattempt.EmailAddress);
                     if (user != null)
                     {
-                        signupAttempt.ErrorMessage = "User with this email already exists.";
-                        return View(signupAttempt);
+                        ViewBag.ErrorMsg = "User with this email already exists";
+                        return View(signupattempt);
                     }
                 }
-
+                var newUser = new User()
+                {
+                    FirstName = signupattempt.FirstName,
+                    LastName = signupattempt.LastName,
+                    EmailAddress = signupattempt.EmailAddress,
+                    Password = signupattempt.Password
+                };
                 //save to db
-                _context.Users.Add(new User(signupAttempt));
-                _context.SaveChangesAsync();
+                _context.Users.Add(newUser);
+                await _context.SaveChangesAsync();
                 return Login();
             }
-            else
-            {
-                return View(signupAttempt);
-            }
+            return View(signupattempt);
         }
-
+        
         public IActionResult MyAccount()
         {
             if(LoggedIn())
