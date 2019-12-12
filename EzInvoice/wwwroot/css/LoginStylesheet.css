@@ -1,5 +1,5 @@
 ﻿ body {
-     background-color:blanchedalmond
+     background-color:cadetblue;
 }
 
  .signUp{
@@ -19,4 +19,11 @@
      margin-top:5%;
      margin-left: 2%
  }
+
+ .f-box{
+     width:80%;
+ }
+
+
+
 

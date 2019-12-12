@@ -128,6 +128,20 @@ namespace EzInvoice.Controllers
             return Error403();
         }
 
+        public IActionResult Dash()
+        {
+            var user = HttpContext.Session.GetString("EmailAddress");
+
+            /* ViewBag.clients = _context
+                 .Users
+                 .Include(u => u.Clients)
+             //ViewBag.invoices = _context.Invoices.ToList();
+
+             return View(_context.Invoices.ToList());*/
+         
+            return null;
+        }
+
         [Route("error/404")]
         public IActionResult Error404()
         {
