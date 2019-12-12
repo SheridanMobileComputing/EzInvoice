@@ -23,9 +23,10 @@ namespace EzInvoice.Controllers
 
         public IActionResult Index()
         {
-            var httpContext = HttpContext.Session.GetString("EmailAddress");
+            var email = HttpContext.Session.GetString("EmailAddress");
+
             var user = _context.Users
-                .FirstOrDefault(s => s.EmailAddress == httpContext);
+                .FirstOrDefault(s => s.EmailAddress == email);
             /* if (user == null)
              {
                  return RedirectToAction("Home", "Error403", 403);
@@ -35,9 +36,14 @@ namespace EzInvoice.Controllers
             return View("AccountInfo", user);
         }
 
-        public IActionResult Edit(User user)
+        public IActionResult Edit(int id)
         {
+            var user = _context.Users.Where(u => u.Id == id).FirstOrDefault();
             // takes a parameter of user and populates the user form with the model attributres 
+            if(user == null)
+            {
+                return NotFound();
+            }
         
             return View("EditUser", user);
         }

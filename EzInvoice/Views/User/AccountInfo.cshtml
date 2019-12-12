@@ -1,6 +1,7 @@
 ﻿@model User;
 @{
     Layout = "_MainLayout";
+    var editAccountParams =  new Dictionary<string, string> {{ "id",  Model.Id.ToString() }};
 }
 
 
@@ -21,7 +22,7 @@
 
 
     <div>
-        <a asp-action="Edit" class="btn btn-success">Edit Account</a>
+        <a asp-action="Edit" asp-all-route-data="@editAccountParams" class="btn btn-success">Edit Account</a>
     </div>
 </div>
 </body>

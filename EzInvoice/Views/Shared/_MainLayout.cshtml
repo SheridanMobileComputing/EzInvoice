@@ -19,68 +19,69 @@
 <body>
 
 <!-- Nav Bar - Open -->
-<nav class="navbar fixed-top navbar-expand-md navbar-light bg-light">
-    <a class="navbar-brand" href="#">LOGO HERE</a> <!-- logo -->
+    <nav class="navbar fixed-top navbar-expand-md navbar-light bg-light">
+        <a class="navbar-brand" href="#"><img src="~/images/logo.png" height="50px" /></a> <!-- logo -->
 
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span> <!-- creates the 3 horizontal lines - can type click me -->
-    </button>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span> <!-- creates the 3 horizontal lines - can type click me -->
+        </button>
 
-    <div class="collapse navbar-collapse" id="navbarSupportedContent"> <!-- Collapsible Container -->
-        <div class="navbar-nav mr-auto">
-            <!-- Nav Bar Items in List -->
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <!-- Collapsible Container -->
+            <div class="navbar-nav mr-auto">
+                <!-- Nav Bar Items in List -->
 
-            <div class="nav-item active">
-                <!-- Home Button -->
-                <a class="nav-link" asp-controller="Home" asp-action="Dashboard">
-                    <span class="fas fa-home"></span> Dashboard
-                    <span class="sr-only">(current)</span>
-                </a>
-            </div> <!-- Home Button -->
+                <div class="nav-item active">
+                    <!-- Home Button -->
+                    <a class="nav-link" asp-controller="Home" asp-action="Dashboard">
+                        <span class="fas fa-home"></span> Dashboard
+                        <span class="sr-only">(current)</span>
+                    </a>
+                </div> <!-- Home Button -->
 
-            <div class="nav-item">
-                <!-- Clients button -->
-                <a class="nav-link" asp-controller="Client" asp-action="Index">
-                    <span class="fas fa-users"></span> Clients
-                    <span class="sr-only">(current)</span>
-                </a>
-            </div> <!-- Clients button -->
+                <div class="nav-item">
+                    <!-- Clients button -->
+                    <a class="nav-link" asp-controller="Client" asp-action="Index">
+                        <span class="fas fa-users"></span> Clients
+                        <span class="sr-only">(current)</span>
+                    </a>
+                </div> <!-- Clients button -->
 
-            <div class="nav-item">
-                <!-- Invoices button -->
-                <a class="nav-link" asp-controller="Invoice" asp-action="Index">
-                    <span class="fas fa-file-invoice"></span> Invoices
-                    <span class="sr-only">(current)</span>
-                </a>
-            </div> <!-- Invoices button -->
+                <div class="nav-item">
+                    <!-- Invoices button -->
+                    <a class="nav-link" asp-controller="Invoice" asp-action="Index">
+                        <span class="fas fa-file-invoice"></span> Invoices
+                        <span class="sr-only">(current)</span>
+                    </a>
+                </div> <!-- Invoices button -->
 
-            <div class="nav-item">
-                <!-- Financial button -->
-                <a class="nav-link" asp-controller="Financial" asp-action="Index">
-                    <span class="far fa-folder"></span> Financial
-                    <span class="sr-only">(current)</span>
-                </a>
-            </div> <!-- Financial button -->
+                <div class="nav-item">
+                    <!-- Financial button -->
+                    <a class="nav-link" asp-controller="Financial" asp-action="Index">
+                        <span class="far fa-folder"></span> Financial
+                        <span class="sr-only">(current)</span>
+                    </a>
+                </div> <!-- Financial button -->
 
-            <div class="nav-item">
-                <!-- MyAccount button -->
-                <a class="nav-link" asp-controller="User" asp-action="Index">
-                    <span class="far fa-user-circle"></span> My Account
-                    <span class="sr-only">(current)</span>
-                </a>
-            </div> <!-- MyAccount button -->
+                <div class="nav-item">
+                    <!-- MyAccount button -->
+                    <a class="nav-link" asp-controller="User" asp-action="Index">
+                        <span class="far fa-user-circle"></span> My Account
+                        <span class="sr-only">(current)</span>
+                    </a>
+                </div> <!-- MyAccount button -->
 
-            <div class="nav-item">
-                <!-- Logout button -->
-                <a class="nav-link" asp-controller="Home" asp-action="Logout">
-                    <span class="far fa-user-circle"></span> Log Out
-                    <span class="sr-only">(current)</span>
-                </a>
-            </div> <!-- Logout button -->
+                <div class="nav-item">
+                    <!-- Logout button -->
+                    <a class="nav-link" asp-controller="Home" asp-action="Logout">
+                        <span class="far fa-user-circle"></span> Log Out
+                        <span class="sr-only">(current)</span>
+                    </a>
+                </div> <!-- Logout button -->
 
-        </div> <!-- Nav Bar Items in List -->
-    </div> <!-- Collapsible Container -->
-</nav>
+            </div> <!-- Nav Bar Items in List -->
+        </div> <!-- Collapsible Container -->
+    </nav>
 <!-- Nav Bar - Closed -->
 
     <div class="mainContent">
