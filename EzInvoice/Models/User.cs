@@ -18,14 +18,18 @@ namespace EzInvoice.Models
         public string PostalCode { get; set; }
         public string Country { get; set; }
 
-        public User(string FirstName, string LastName, string EmailAddress, string Password)
-        {
-            this.FirstName = FirstName;
-            this.LastName = LastName;
-            this.EmailAddress = EmailAddress;
-            this.Password = Password;
-        }
+        /*        public User(string FirstName, string LastName, string EmailAddress, string Password)
+                {
+                    this.FirstName = FirstName;
+                    this.LastName = LastName;
+                    this.EmailAddress = EmailAddress;
+                    this.Password = Password;
+                }*/
 
+            public User()
+        {
+
+        }
         public User(SignupAttempt signupAttempt)
         {
             this.FirstName = signupAttempt.FirstName;

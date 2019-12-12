@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using EzInvoice.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -22,25 +23,28 @@ namespace EzInvoice.Controllers
 
         public IActionResult Index()
         {
-
-            //Fake Data for testing 
-            var user = new User("bob", "gong", "bob@hotmail.com", "123456");
+            var httpContext = HttpContext.Session.GetString("EmailAddress");
+            var user = _context.Users
+                .FirstOrDefault(s => s.EmailAddress == httpContext);
+            if (user == null)
+            {
+                return RedirectToAction("Home", "Error403", 403);
+            }
             return View("AccountInfo", user);
         }
 
-        public IActionResult Edit()
+        public IActionResult Edit(User user)
         {
             // takes a parameter of user and populates the user form with the model attributres 
         
-            return View("EditUser");
+            return View("EditUser", user);
         }
 
 
         public async Task<IActionResult> Update(User user)
         {
-            var email = "kevin@hotmail.com";
-
-            var userInDb = await _context.Users.FirstOrDefaultAsync(u => u.EmailAddress == email);
+            
+            var userInDb = await _context.Users.FirstOrDefaultAsync(u => u.EmailAddress == user.EmailAddress);
 
             await TryUpdateModelAsync<User>(
                 userInDb,

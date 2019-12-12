@@ -16,7 +16,8 @@ namespace EzInvoice.Models
         }
         public bool wasSuccessful()
         {
-            
+            //var user = _context.Users.FirstOrDefault(a => a.EmailAddress == Email);
+
             User UserAccount = Repository.getUserByEmail(Email_address);
 
 

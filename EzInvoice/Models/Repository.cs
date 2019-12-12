@@ -53,12 +53,13 @@ namespace EzInvoice.Models
         //return a list of users by email
         public static List<User> getAllUsers()
         {
-            return new List<User>()
-            {
-                new User("Jim", "Jones", "jim@gmail.com", "hello"),
-                new User("Lenin", "Moreno", "president@ecuador.gov", "i_will_never_die"),
-                new User("Linus", "Techtips", "linus@youtube.com", "password"),
-            };
+            /* return new List<User>()
+             {
+                 new User("Jim", "Jones", "jim@gmail.com", "hello"),
+                 new User("Lenin", "Moreno", "president@ecuador.gov", "i_will_never_die"),
+                 new User("Linus", "Techtips", "linus@youtube.com", "password"),
+             };*/
+            return null;
         }
         public static User getUserByEmail(string Email)
         {
