@@ -168,7 +168,7 @@ namespace EzInvoice.Controllers
             }
 
             ViewBag.InvoiceId = id;
-            return View("InvoiceItemForm", new InvoiceItem());
+            return View("InvoiceItemForm");
         }
 
 
@@ -188,7 +188,7 @@ namespace EzInvoice.Controllers
 
             //return RedirectToAction("InvoiceDetail", new { id = invoiceId });
 
-            return View("InvoiceItemForm", invoiceItem);
+            return View("InvoiceItemEditForm", invoiceItem);
         }
 
 
