@@ -68,9 +68,9 @@ namespace EzInvoice.Controllers
             );
             await _context.SaveChangesAsync();
 
-            ViewBag.InvoiceId = InvoiceInDb.Id;
-
-            return View("InvoiceItemForm");
+            return RedirectToAction("Index");
+            //ViewBag.InvoiceId = InvoiceInDb.Id;
+            //return RedirectToAction("InvoiceDetail", new { id = InvoiceInDb.Id });
         }
 
 
@@ -97,9 +97,8 @@ namespace EzInvoice.Controllers
             _context.Invoices.Add(invoice);
             _context.SaveChanges(); //do this synchronously so we can get the id in the next line...
 
-            ViewBag.InvoiceId = invoice.Id;
-            
-            return View("InvoiceItemForm");
+            return RedirectToAction("InvoiceDetail", new { id = invoice.Id });
+            //return View("InvoiceDetail", invoice.Id);
         }
 
         public async Task<IActionResult> DeleteInvoice(int id)
@@ -123,7 +122,7 @@ namespace EzInvoice.Controllers
             return RedirectToAction("Index", "Invoice");
         }
 
-
+       
         public async Task<IActionResult> InvoiceDetail(int id)
         {
             var invoice = await _context
@@ -158,21 +157,36 @@ namespace EzInvoice.Controllers
 
 
         [HttpGet]
-        public IActionResult CreateItem()
+        public IActionResult CreateItem(int id)
         {
-            ViewBag.Invoices = _context.Invoices.ToList();
+            var invoice =  _context
+                .Invoices.Find(id);
+
+            if (invoice == null)
+            {
+                return NotFound();
+            }
+
+            ViewBag.InvoiceId = id;
             return View("InvoiceItemForm");
         }
 
 
         public async Task<IActionResult> EditItem(int id)
         {
-            var invoiceItem = await _context
-                .InvoiceItems.FindAsync(id);
+            var invoiceItem = await _context.InvoiceItems
+                .Where(i => i.Id == id)
+                .Include(i => i.Invoice)
+                .FirstOrDefaultAsync();
+
             if (invoiceItem == null)
             {
                 return NotFound();
             }
+
+            //var invoiceId = invoiceItem.Invoice.Id;
+
+            //return RedirectToAction("InvoiceDetail", new { id = invoiceId });
 
             return View("InvoiceItemForm", invoiceItem);
         }
@@ -202,13 +216,17 @@ namespace EzInvoice.Controllers
             invoice.InvoiceItems.Append(invoiceItem);
             _context.InvoiceItems.Add(invoiceItem);
             await _context.SaveChangesAsync();
-            return RedirectToAction("Index");
+            return RedirectToAction("InvoiceDetail", new { id = InvoiceId });
         }
 
-        public async Task<IActionResult> DeleteItem(int id)
+        public IActionResult DeleteItem(int id)
         {
-            var invoiceItem = await _context
-                .InvoiceItems.FindAsync(id);
+            var invoiceItem = _context.InvoiceItems
+                .Include(i => i.Invoice)
+                .Where(i => i.Id == id)
+                .FirstOrDefault();
+
+            var invoiceId = invoiceItem.Invoice.Id;
 
             if (invoiceItem == null)
             {
@@ -216,8 +234,10 @@ namespace EzInvoice.Controllers
             }
 
             _context.InvoiceItems.Remove(invoiceItem);
-            await _context.SaveChangesAsync();
-            return RedirectToAction("Index", "Invoice");
+            _context.SaveChanges();
+
+            return RedirectToAction("InvoiceDetail", new { id = invoiceId });
+            //return RedirectToAction("Index", "Invoice");
         }
 
     }
