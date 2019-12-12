@@ -1,7 +1,7 @@
 ﻿@model EzInvoice.Models.SignupAttempt
 
 @{
-    Layout = "_OtherLayout";
+    Layout = "_LoginLayout";
 }
 
 <!DOCTYPE html>
@@ -12,36 +12,90 @@
 </head>
 <body>
 
+    <div class="main-header">
+        <h1 class="text-center font-weight-bold jumbotron"> Join the EZInvoice Family </h1>
+    </div>
+
+
+    <h2 class="font-weight-normal login text-center">Sign Up</h2>
+
     <h4>@ViewBag.ErrorMsg</h4>
 
     @using (Html.BeginForm("signup", "Home", FormMethod.Post))
     {
         @Html.ValidationSummary(true)
-    <fieldset>
-        <div>
-            @Html.EditorFor(model => model.FirstName)
-            @Html.ValidationMessageFor(model => model.FirstName)
-        </div>
-        <div>
-            @Html.EditorFor(model => model.LastName)
-            @Html.ValidationMessageFor(model => model.LastName)
-        </div>
-        <div>
-            @Html.EditorFor(model => model.EmailAddress)
-            @Html.ValidationMessageFor(model => model.EmailAddress)
-        </div>
-        <div>
-            @Html.EditorFor(model => model.Password)
-            @Html.ValidationMessageFor(model => model.Password)
-        </div>
-        <div>
-            @Html.EditorFor(model => model.RepeatPassword)
-            @Html.ValidationMessageFor(model => model.RepeatPassword)
-        </div>
-        <p>
-            <input type="submit" value="SignUp" />
-        </p>
-    </fieldset>
+        <fieldset class="text-center">
+            <div class="form-group">
+                @Html.EditorFor(model => model.FirstName,
+               new
+                    {
+                        htmlAttributes = new
+                        {
+                            placeholder = "Enter First Name",
+                   @class = "form-control",
+                   style = "width:40%; margin-left:30%"
+                        }
+                    })
+                @Html.ValidationMessageFor(model => model.FirstName)
+            </div>
+            <div class="form-group">
+                @Html.EditorFor(model => model.LastName,
+               new
+                    {
+                        htmlAttributes = new
+                        {
+                            placeholder = "Enter Last Name",
+                   @class = "form-control",
+                   style = "width:40%; margin-left:30%"
+                        }
+                    })
+                @Html.ValidationMessageFor(model => model.LastName)
+            </div>
+            <div class="form-group">
+                @Html.EditorFor(model => model.EmailAddress,
+               new
+                    {
+                        htmlAttributes = new
+                        {
+                            placeholder = "Enter Email Address",
+                   @class = "form-control",
+                   style = "width:40%; margin-left:30%"
+                        }
+                    })
+                @Html.ValidationMessageFor(model => model.EmailAddress)
+            </div>
+            <div class="form-group">
+                @Html.EditorFor(model => model.Password,
+               new
+                    {
+                        htmlAttributes = new
+                        {
+                            placeholder = "Enter Password",
+                   @class = "form-control",
+                   style = "width:40%; margin-left:30%",
+                   type = "password"
+                        }
+                    })
+                @Html.ValidationMessageFor(model => model.Password)
+            </div>
+            <div class="form-group">
+                @Html.EditorFor(model => model.RepeatPassword,
+               new
+                    {
+                        htmlAttributes = new
+                        {
+                            placeholder = "Confirm Password",
+                   @class = "form-control",
+                   style = "width:40%; margin-left:30%",
+                   type = "password"
+                        }
+                    })
+                @Html.ValidationMessageFor(model => model.RepeatPassword)
+            </div>
+            <p>
+                <input class="btn btn-light" type="submit" value="SignUp" />
+            </p>
+        </fieldset>
     }
     @* <article class="card-body mx-auto" style="max-width: 400px;">
             @if (Model.ErrorMessage != null && Model.ErrorMessage != "")
