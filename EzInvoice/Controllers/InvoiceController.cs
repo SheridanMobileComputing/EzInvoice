@@ -77,28 +77,31 @@ namespace EzInvoice.Controllers
         [HttpPost]
         public async Task<IActionResult> SaveInvoice(int clientId, DateTime dateOfIssue, DateTime dueDate, bool paid, float taxRate)
         {
-            var client = await _context
-                .Clients.FindAsync(clientId);
-            
-            if (client == null)
+            if (ModelState.IsValid)
             {
-                return NotFound();
+                var client = await _context
+                    .Clients.FindAsync(clientId);
+
+                if (client == null)
+                {
+                    return NotFound();
+                }
+
+                Invoice invoice = new Invoice
+                {
+                    Client = client,
+                    DateOfIssue = dateOfIssue,
+                    DueDate = dueDate,
+                    Paid = paid,
+                    TaxRate = taxRate
+                };
+
+                _context.Invoices.Add(invoice);
+                _context.SaveChanges(); //do this synchronously so we can get the id in the next line...
+
+                return RedirectToAction("InvoiceDetail", new { id = invoice.Id });
             }
-
-            Invoice invoice = new Invoice
-            {
-                Client = client,
-                DateOfIssue = dateOfIssue,
-                DueDate = dueDate,
-                Paid = paid,
-                TaxRate = taxRate
-            };
-
-            _context.Invoices.Add(invoice);
-            _context.SaveChanges(); //do this synchronously so we can get the id in the next line...
-
-            return RedirectToAction("InvoiceDetail", new { id = invoice.Id });
-            //return View("InvoiceDetail", invoice.Id);
+            return View("InvoiceForm");
         }
 
         public async Task<IActionResult> DeleteInvoice(int id)

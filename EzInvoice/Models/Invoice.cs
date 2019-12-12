@@ -2,13 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
 
 namespace EzInvoice.Models
 {
     public class Invoice
     {
         public int? Id { get; set; }
+        [Range(typeof(DateTime), "01/01/1900", "01/01/2100", ErrorMessage = "Date is out of Range")]
         public DateTime DateOfIssue { get; set; }
+        [Range(typeof(DateTime), "01/01/1900", "01/01/2100", ErrorMessage = "Date is out of Range")]
         public DateTime DueDate { get; set; }
         public bool Paid { get; set; }
         public float TaxRate { get; set; }
