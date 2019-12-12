@@ -26,10 +26,12 @@ namespace EzInvoice.Controllers
             var httpContext = HttpContext.Session.GetString("EmailAddress");
             var user = _context.Users
                 .FirstOrDefault(s => s.EmailAddress == httpContext);
-            if (user == null)
-            {
-                return RedirectToAction("Home", "Error403", 403);
-            }
+            /* if (user == null)
+             {
+                 return RedirectToAction("Home", "Error403", 403);
+             }
+             return View("AccountInfo", user);*/
+
             return View("AccountInfo", user);
         }
 
@@ -53,7 +55,9 @@ namespace EzInvoice.Controllers
                 );
 
             await _context.SaveChangesAsync();
-            return RedirectToAction("UserMain", "User");
+            return RedirectToAction("Index", "User");
         }
+
+
     }
 }

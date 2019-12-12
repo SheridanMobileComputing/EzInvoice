@@ -20,19 +20,19 @@
                 @Html.ValidationSummary(true)
             <fieldset>
                 <div>
-                    @Html.EditorFor(model => model.FirstName)
+                    @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { placeholder = "First name", @class = "form-control", style = "width:40%; margin-left:30%" } })
                     @Html.ValidationMessageFor(model => model.FirstName)
                 </div>
                 <div>
-                    @Html.EditorFor(model => model.LastName)
+                    @Html.EditorFor(model => model.LastName,  new { htmlAttributes = new { placeholder = "Last Name", @class = "form-control", style = "width:40%; margin-left:30%" } })
                     @Html.ValidationMessageFor(model => model.LastName)
                 </div>
                 <div>
-                    @Html.EditorFor(model => model.EmailAddress)
+                    @Html.EditorFor(model => model.EmailAddress,  new { htmlAttributes = new { placeholder = "Email Address", @class = "form-control", style = "width:40%; margin-left:30%" } })
                     @Html.ValidationMessageFor(model => model.EmailAddress)
                 </div>
-                <p>
-                    <input type="submit" value="Update" />
+                <p class="text-center">
+                    <input class="btn btn-light text-center" type="submit" value="Update" />
                 </p>
             </fieldset>
             }
