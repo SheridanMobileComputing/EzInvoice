@@ -168,7 +168,7 @@ namespace EzInvoice.Controllers
             }
 
             ViewBag.InvoiceId = id;
-            return View("InvoiceItemForm");
+            return View("InvoiceItemForm", new InvoiceItem());
         }
 
 
@@ -218,35 +218,33 @@ namespace EzInvoice.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction("InvoiceDetail", new { id = InvoiceId });
         }
-        /*
-        public async Task<IActionResult> SaveEditItem(int InvoiceId, double Quantity, double Cost, string ItemNo, string ItemDescription)
+        
+        public async Task<IActionResult> SaveEditItem(int ItemId, double Quantity, double Cost, string ItemNo, string ItemDescription)
         {
-            var InvoiceInDb = await _context.Invoices
-                .Include(i => i.InvoiceItems)
-                .Where(i => i.Id == InvoiceId)
-                .FirstOrDefaultAsync();
+            //if we are editing an item...
+            var item = await _context.InvoiceItems
+                    .Include(i => i.Invoice)
+                    .Where(i => i.Id == ItemId)
+                    .FirstOrDefaultAsync();
 
-
-
-            if (InvoiceInDb == null)
+            if (item == null)
             {
                 return NotFound();
             }
 
-            await TryUpdateModelAsync<Invoice>(
-                InvoiceInDb,
+            await TryUpdateModelAsync<InvoiceItem>(
+                item,
                 "",
                 i => i.Quantity,
-                i => i.DueDate,
-                i => i.Paid,
-                i => i.TaxRate
+                i => i.Cost,
+                i => i.ItemNo,
+                i => i.ItemDescription
             );
             await _context.SaveChangesAsync();
 
-            return RedirectToAction("Index");
-            //ViewBag.InvoiceId = InvoiceInDb.Id;
-            //return RedirectToAction("InvoiceDetail", new { id = InvoiceInDb.Id });
-        }*/
+            return RedirectToAction("InvoiceDetail", new { id = item.Invoice.Id });
+
+        }
 
         public IActionResult DeleteItem(int id)
         {
