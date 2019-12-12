@@ -17,11 +17,15 @@ namespace EzInvoice.Controllers
         {
             _context = context;
         }
-
-
         public IActionResult Index()
         {
-            FinancialStatistics financialStats = new FinancialStatistics(_context);
+            return RedirectToAction("Index", new { year = 2019 });
+        }
+
+        [Route("/Financial/{year}")]
+        public IActionResult Index(int year)
+        {
+            FinancialStatistics financialStats = new FinancialStatistics(_context, year);
             return View("FinancialMain", financialStats);
         }
 
