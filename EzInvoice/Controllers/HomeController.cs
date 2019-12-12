@@ -115,11 +115,11 @@ namespace EzInvoice.Controllers
             return View(signupattempt);
         }
         
-        public IActionResult MyAccount()
+        public async Task<IActionResult> MyAccount()
         {
             if(LoggedIn())
             {
-                User activeUser = Repository.getUserByEmail(HttpContext.Session.GetString("EmailAddress"));
+                var activeUser =  await _context.Users.FirstOrDefaultAsync(a => a.EmailAddress == HttpContext.Session.GetString("EmailAddress"));
                 if(activeUser != null)
                 {
                     return View("AccountInfo", activeUser);
