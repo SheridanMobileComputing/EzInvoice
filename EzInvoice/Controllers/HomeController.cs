@@ -128,20 +128,6 @@ namespace EzInvoice.Controllers
             return Error403();
         }
 
-        public IActionResult Dash()
-        {
-            var user = HttpContext.Session.GetString("EmailAddress");
-
-            /* ViewBag.clients = _context
-                 .Users
-                 .Include(u => u.Clients)
-             //ViewBag.invoices = _context.Invoices.ToList();
-
-             return View(_context.Invoices.ToList());*/
-         
-            return null;
-        }
-
         [Route("error/404")]
         public IActionResult Error404()
         {
@@ -157,6 +143,25 @@ namespace EzInvoice.Controllers
         public IActionResult Dashboard()
         {
             if (LoggedIn()) {
+                ViewBag.clientCount = _context.Clients.Count();
+
+                var invList = _context.
+                    Invoices
+                    .Include(i => i.InvoiceItems)
+                    .ToList();
+
+                ViewBag.invoiceCount = invList.Count();
+
+                var totalOutstanding = 0.00;
+
+                foreach (var item in invList)
+                {
+                    if (!item.Paid)
+                    {
+                        totalOutstanding += item.Total();
+                    }
+                }
+                ViewBag.totalAmt = totalOutstanding;
                 return View("Dashboard");
             }
             return Error403();

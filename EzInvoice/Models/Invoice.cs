@@ -18,10 +18,12 @@ namespace EzInvoice.Models
         public double Total()
         {
             double cost = 0.00;
-
-            foreach (var item in InvoiceItems)
+            if (InvoiceItems.Count > 0)
             {
-                cost += item.Total();
+                foreach (var item in InvoiceItems)
+                {
+                    cost += item.Total();
+                }
             }
             return Math.Round(cost, 2);
         }
